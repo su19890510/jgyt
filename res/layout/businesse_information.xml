@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/back_color"
+    android:orientation="vertical"
+    
+   >
+   <!-- tital -->
+
+    <TextView
+        android:id="@+id/plantDetailTittle"
+        style="@style/top_text_style"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="水仙" />
+
+     <ScrollView android:id="@+id/scrollView" 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom = "10dp"
+        > 
+
+	   <RelativeLayout
+	       android:layout_width="fill_parent"
+	       android:layout_height="fill_parent" >
+	       <include android:id="@+id/info_detial" layout="@layout/businesse_information_detail"/>
+	       
+	       <LinearLayout
+	           android:id="@+id/bus_info_1"
+	           style="@style/some_used"
+	           android:layout_width="fill_parent"
+	           android:layout_height="wrap_content"
+	           android:layout_below="@id/info_detial"
+	           android:background="@drawable/ta_bg"
+	           android:orientation="vertical" >
+
+	           <TextView
+	               android:id="@+id/textView1"
+	               android:layout_width="fill_parent"
+	               android:layout_height="wrap_content"
+	               android:text="习性:"
+	               android:textColor="#000000" />
+	           
+	             <TextView
+	               android:id="@+id/plantDetailXiXing"
+	               android:layout_width="fill_parent"
+	               android:layout_height="wrap_content"
+	               android:text="喜欢阴暗潮湿的地方"
+	               />
+
+          </LinearLayout>
+          
+	          <LinearLayout
+	           android:id="@+id/bus_info_2"
+	           style="@style/some_used"
+	           android:layout_width="fill_parent"
+	           android:layout_height="wrap_content"
+	           android:layout_below="@id/bus_info_1"
+	           android:background="@drawable/ta_bg"
+	           android:orientation="vertical"
+	            >
+
+	           <TextView
+	               android:id="@+id/plantDetailYongTuTittle"
+	               android:layout_width="fill_parent"
+	               android:layout_height="wrap_content"
+	               android:text="用途:"
+	               android:textColor="#000000" />
+	           
+	             <TextView
+	               android:id="@+id/plantDetailYongTu"
+	               android:layout_width="fill_parent"
+	               android:layout_height="wrap_content"
+	               android:text="喜欢阴暗潮湿的地方"
+	               />
+
+          </LinearLayout>
+          <!-- fdkjghdfkghsl;dfkjg sldfjkg sldf;kghl sfk;hj sl;fhjsfklhj l;dfkh sfl'kg kl; -->
+	
+	   </RelativeLayout>
+
+    </ScrollView> 
+   
+</LinearLayout>

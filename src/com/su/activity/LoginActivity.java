@@ -1,0 +1,172 @@
+package com.su.activity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.jgzs.lsw.R;
+
+import com.su.ImageLoad.ImageLoader;
+import com.su.framgment.FragmentAdapter;
+import com.su.util.AppData;
+import com.su.util.NetManager;
+
+public class LoginActivity extends Activity  {
+	private Button mLogin;
+	private TextView forgetPassword;
+	private TextView register;
+    private InputMethodManager manager ;
+    private LoginActivity login;
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	    requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		setContentView(R.layout.login);
+		login = this;
+		manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		LinearLayout activity_main = (LinearLayout) findViewById(R.id.login_activity_main);
+		activity_main.setOnTouchListener(new OnTouchListener()  
+		{  
+		              
+		    public boolean onTouch(View arg0, MotionEvent arg1)  
+		    {  
+		    	Log.v("suzhaohui","listener is enter");
+		        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);  
+		        return imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);  
+		    }  
+		});  
+		findViewById();
+		setListener();
+	}
+
+	/**
+	 * 绑定界面UI
+	 */
+	private void findViewById() {
+		mLogin = (Button) findViewById(R.id.login_activity_login);
+		forgetPassword = (TextView) findViewById(R.id.login_activity_forget);
+		register = (TextView) findViewById(R.id.login_activity_register);
+		
+		
+		forgetPassword.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+			//调到拨号界面			 
+				startActivity(new Intent(LoginActivity.this,
+						ForgetPasswordActivity.class));
+				finish();
+			}
+			});
+		
+		
+		register.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+			//调到拨号界面			 
+				startActivity(new Intent(LoginActivity.this,
+						RegisterActivity.class));
+				finish();
+			}
+			});
+		
+		
+	}
+
+	/**
+	 * UI事件监听
+	 */
+	private void setListener() {
+		// 登录按钮监听
+		mLogin.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				Log.v("suzhaohui","onclicked");
+				String name = String.valueOf(((TextView)findViewById(R.id.login_activity_name)).getText());
+				String password = String.valueOf(((TextView)findViewById(R.id.login_activity_password)).getText());
+				
+				if(name.trim().length()<=0)
+				{
+					Toast.makeText(login, "名字不能为空",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
+				
+				
+				
+				if(password.trim().length()<=0)
+				{
+					Toast.makeText(login, "密码不能为空",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
+				
+				List<NameValuePair>  tt = new ArrayList<NameValuePair>();
+				NetManager bb=		NetManager.getInstance() ; //.toString();
+				tt.add(new BasicNameValuePair("name",name)); 
+				tt.add(new BasicNameValuePair("password",password));
+				JSONObject get = bb.sendHttpRequest("account/login", tt, 1);
+				if(get == null)
+				{
+					Log.v("suzhaohui","login get is null");
+					return;
+				}
+				try {
+					int code = get.getInt("code");
+					if(code != 200)
+					{
+						Toast.makeText(login, get.getString("message"),
+								Toast.LENGTH_SHORT).show();
+						return;
+					}
+					AppData.userInfo = get.getJSONObject("data").getJSONObject("user");
+					finish();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		
+	});
+	}
+
+	@Override  
+	 public boolean onTouchEvent(MotionEvent event) {  
+	  // TODO Auto-generated method stub  
+	  if(event.getAction() == MotionEvent.ACTION_DOWN){  
+	     if(getCurrentFocus()!=null && getCurrentFocus().getWindowToken()!=null){  
+	       manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);  
+	     }  
+	  }  
+	  return super.onTouchEvent(event);  
+	 }
+
+
+}
