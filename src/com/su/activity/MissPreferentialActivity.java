@@ -3,13 +3,13 @@ package com.su.activity;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.jgzs.lsw.R;
+import com.su.ui.TabShow;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
-
-import com.jgzs.lsw.R;
-import com.su.ui.TabShow;
 
 public class MissPreferentialActivity extends Activity {
 	public static final String TAG = "nian"; 

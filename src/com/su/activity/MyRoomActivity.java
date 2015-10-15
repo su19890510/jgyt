@@ -1,29 +1,19 @@
 package com.su.activity;
 
-import java.io.File;
+import com.jgzs.lsw.R;
+import com.su.util.AppData;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.view.inputmethod.InputMethodManager;
+import android.view.Window;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import com.jgzs.lsw.R;
-import com.su.util.AppData;
 
 public class MyRoomActivity extends Activity  implements OnClickListener{
 

@@ -32,7 +32,7 @@ public class UpLoadImage {
 	 */	
 	public static void upload(List<String> pathList,String url) {
 		String files = "FileUpload:";
-		url = NetManager.httpbegin + url;
+		url = NetManager.HTTP_DOMAIN + url;
 		for (int i = 0; i < pathList.size(); i++) {			
 			Log.i("HttpUrlEncodedFormEntityPost","filePath:"+pathList.get(i));
 			//根据路径生成一个Bitmap
