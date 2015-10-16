@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.widget.Toast;
 
 /**
@@ -61,18 +62,21 @@ public class UploadFileTask extends AsyncTask<String, Void, String>{
     */
    private  ProgressDialog pdialog;
    private  Activity context=null;
-    public UploadFileTask(Activity ctx){
+   private Handler handler = null;
+    public UploadFileTask(Activity ctx,Handler _handler){
     	this.context=ctx;
-    	pdialog=ProgressDialog.show(context, "���ڼ���...", "ϵͳ���ڴ�����������");  
+    	this.handler = _handler;
+    	pdialog=ProgressDialog.show(context, "提示", "正在上传图片");  
     }
     @Override
     protected void onPostExecute(String result) {
         // ����HTMLҳ�������
         pdialog.dismiss(); 
         if(UploadUtils.SUCCESS.equalsIgnoreCase(result)){
-        	Toast.makeText(context, "�ϴ��ɹ�!",Toast.LENGTH_LONG ).show();
+        	Toast.makeText(context, "图片上传成功",Toast.LENGTH_LONG ).show();
+        	handler.sendEmptyMessage(1);
         }else{
-        	Toast.makeText(context, "�ϴ�ʧ��!",Toast.LENGTH_LONG ).show();
+        	Toast.makeText(context, "图片上传失败",Toast.LENGTH_LONG ).show();
         }
     }
 

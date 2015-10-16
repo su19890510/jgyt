@@ -13,6 +13,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.UUID;
+
+import com.su.activity.UpdateDetailActivity;
+
 import android.util.Log;
 
 /**
@@ -108,6 +111,7 @@ public class UploadUtils {
 		        }  
 		       String str = buffer.toString();  
 		       Log.v("suzhaohui",str);
+               UpdateDetailActivity.headImgPath = str;
 				if(res==200)
 				{
 			     return SUCCESS;

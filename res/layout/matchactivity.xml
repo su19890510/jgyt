@@ -1,0 +1,122 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/back_color"
+>
+    
+      <LinearLayout 
+     android:id="@+id/bottom_layout"
+     android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:orientation="vertical" 
+        >
+         <TextView android:id="@+id/choose_mer_tital" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        style="@style/top_text_style"
+        android:text="@string/match_title"/>  
+         
+           <ImageView 
+              
+             android:layout_width="fill_parent"
+             android:layout_height="1dip"    
+             android:background="@drawable/line"
+              
+              />
+   
+      
+           
+          <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"       
+            android:paddingBottom="5dip"
+            android:paddingTop="10dip"
+            android:background="#ffffff"
+             >
+           
+            <TextView
+                android:id="@+id/match_activity_abstract"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:gravity="center"
+                android:text="@string/match_abstract"               
+                android:textSize="18sp"
+                android:layout_marginLeft="12dip"
+                android:layout_marginRight="12dip"
+                android:textColor="@color/lightwhite"
+               android:background="@drawable/navigationbar_button_send_background" 
+                />
+
+            <TextView
+                android:id="@+id/match_activity_news"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:gravity="center"
+                android:text="@string/match_news"             
+                android:textSize="18sp"
+                 android:layout_marginLeft="12dip"
+                android:layout_marginRight="12dip"
+                android:textColor="@color/tab_text"
+               android:background="@null"
+            >
+           </TextView>
+           <TextView
+                android:id="@+id/match_activity_pro"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:gravity="center"
+                android:text="@string/match_pro"             
+                android:textSize="18sp"
+                 android:layout_marginLeft="12dip"
+                android:layout_marginRight="12dip"
+                android:textColor="@color/tab_text"
+               android:background="@null"
+            >
+           </TextView>
+           <TextView
+                android:id="@+id/match_activity_product"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:gravity="center"
+                android:text="@string/match_product"             
+                android:textSize="18sp"
+                 android:layout_marginLeft="12dip"
+                android:layout_marginRight="12dip"
+                android:textColor="@color/tab_text"
+               android:background="@null"
+            >
+           </TextView>
+
+            
+            
+        </LinearLayout>
+           
+         <ImageView 
+              
+             android:layout_width="fill_parent"
+             android:layout_height="1dip"    
+             android:background="@drawable/line"
+              
+              />    
+
+         <android.support.v4.view.ViewPager
+        android:id="@+id/match_activity_pager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+         >
+    </android.support.v4.view.ViewPager>
+   
+   
+         
+         
+       
+
+    </LinearLayout>
+    
+
+</RelativeLayout>

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
+    android:background="@color/back_color"
     android:orientation="vertical"
 >
 
@@ -23,9 +23,10 @@
          android:orientation="vertical" >
 
          <ImageView
-             android:id="@+id/imageView1"
+             android:id="@+id/myroom_head"
              android:layout_width="100dp"
              android:layout_height="100dp"
+             android:layout_marginTop="10dp"
              android:src="@drawable/bj" 
              android:layout_gravity="center"/>
          

@@ -25,6 +25,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +38,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.su.ImageLoad.ImageLoader;
+import com.su.framgment.FragmentAdapter;
+import com.su.util.UploadFileTask;
 import com.jgzs.lsw.R;
 import com.su.util.AppData;
 import com.su.util.NetManager;
@@ -49,6 +54,8 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
 	
 	private  TextView detail_back;
 	private ImageView detail_user_img;
+	private com.su.ImageLoad.ImageLoader mImageLoader;
+
 
     private String id;
     private String username;
@@ -78,9 +85,31 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
 	private TextView area_tv;
 	private TextView sex_tv;
     
-	private String headImgPath = null;
+	public static String headImgPath = "empty";
+	private int headImgState = 0;//0 -- 表示没有选择  1：表示选择了 2：表示已经上传服务器
 	
-	
+	Handler handler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				try {
+					headImgState = 2;
+					updatedetail();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			default:
+				break;
+			}
+			
+			super.handleMessage(msg);
+		}
+         
+	};
 	
 	
 	@Override
@@ -103,6 +132,16 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
 		detail_back.setOnClickListener(this);
 		
 		detail_user_img=(ImageView)findViewById(R.id.detail_img);
+		mImageLoader = new ImageLoader(this);
+		try {
+			if(AppData.userInfo.getString("avatar").length() > 0)
+			{
+				mImageLoader.DisplayImage(AppData.userInfo.getString("avatar"), detail_user_img, false);
+			}
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	 
 	    nick=(TextView)findViewById(R.id.nick_name);
 	    nick.setText("123");
@@ -261,62 +300,20 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
 		
 
         case R.id.detail_save:
-        	
-        	String nickstr =nick.getText().toString().trim();
-    		String truenamestr =truename.getText().toString().trim();
-    		String phonestr =phone.getText().toString().trim();
-    		String prostr =pro.getText().toString().trim();
-           
-    		List<NameValuePair>  tt = new ArrayList<NameValuePair>();
-			NetManager bb=		NetManager.getInstance() ; //.toString();
-			if(nickstr.length() > 0)
-			{
-				tt.add(new BasicNameValuePair("name",nickstr));
-			}
-			
-			if(truenamestr.length() > 0)
-			{
-				tt.add(new BasicNameValuePair("fullname ",truenamestr));
-			}
-			
-			if(phonestr.length() > 0)
-			{
-				tt.add(new BasicNameValuePair("contact",phonestr));
-			}
-			
-			if(prostr.length() > 0)
-			{
-				tt.add(new BasicNameValuePair("profile",prostr));
-			}
-			 if(AppData.userInfo != null)
-			 {
-				 try {
-					tt.add(new BasicNameValuePair("app_id",AppData.userInfo.getString("app_id")));
-					 tt.add(new BasicNameValuePair("open_id",AppData.userInfo.getString("open_id")));
-					 tt.add(new BasicNameValuePair("access_token",AppData.userInfo.getString("access_token")));
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+        	if(!headImgPath.endsWith("empty") && headImgState == 1)
+        	{
+        		
+        		UploadFileTask uploadFileTask=new UploadFileTask(this,handler);
+				uploadFileTask.execute(headImgPath);
 				
-			 }
-			JSONObject get = bb.sendHttpRequest("account/profile", tt, 1);
-			
-			try {
-				int code = get.getInt("code");
-				if(code != 200)
-				{
-					Toast.makeText(this, get.getString("message"),
-							Toast.LENGTH_SHORT).show();
-					return;
-				}
-				AppData.userInfo = get.getJSONObject("data").getJSONObject("user");
-				Toast.makeText(this, "修改成功",
-						Toast.LENGTH_SHORT).show();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				return;
+        	}
+		try {
+			updatedetail();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         	break;
 
 	default:
@@ -327,6 +324,100 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
 		
 	}
 
+	private void updatedetail() throws JSONException	
+	{
+		String nickstr =nick.getText().toString().trim();
+		String truenamestr =truename.getText().toString().trim();
+		String phonestr =phone.getText().toString().trim();
+		String prostr =pro.getText().toString().trim();
+       
+		List<NameValuePair>  tt = new ArrayList<NameValuePair>();
+		NetManager bb=		NetManager.getInstance() ; //.toString();
+		
+		String nickstr1 = AppData.userInfo.getString("name");
+		String fullnamest1r = AppData.userInfo.getString("fullname");
+		String contact1 = AppData.userInfo.getString("contact");
+		String profile1 = AppData.userInfo.getString("profile");
+		
+		if(nickstr.length() > 0)
+		{
+			if(!nickstr.endsWith(nickstr1))
+			tt.add(new BasicNameValuePair("name",nickstr));
+		}
+		
+		if(truenamestr.length() > 0)
+		{
+			if(!truenamestr.endsWith(fullnamest1r))
+			tt.add(new BasicNameValuePair("fullname ",truenamestr));
+		}
+		
+		if(phonestr.length() > 0)
+		{
+			if(!phonestr.endsWith(contact1))
+			tt.add(new BasicNameValuePair("contact",phonestr));
+		}
+		
+		if(prostr.length() > 0)
+		{
+			if(!phonestr.endsWith(contact1))
+			tt.add(new BasicNameValuePair("profile",prostr));
+		}
+		if(!headImgPath.endsWith("empty") && headImgState == 2)
+		{
+			try {
+				JSONObject img = new JSONObject(headImgPath);
+				JSONObject data = img.getJSONObject("data");
+				String url = data.getString("image_path");
+				tt.add(new BasicNameValuePair("avatar ",url));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			
+		}
+		 if(AppData.userInfo != null)
+		 {
+			 tt.add(new BasicNameValuePair("app_id",AppData.app_id));
+			 tt.add(new BasicNameValuePair("open_id",AppData.open_id));
+			 tt.add(new BasicNameValuePair("access_token",AppData.access_token));
+			
+		 }
+		JSONObject get = bb.sendHttpRequest("account/profile", tt, 0);
+		if(get == null)
+		{
+			Toast.makeText(this, "系统异常（用户名重复）",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+		try {
+			int code = get.getInt("code");
+			if(code != 200)
+			{
+				if(code == -10006)
+				{
+					new AlertDialog.Builder(this).setTitle("提示").setMessage("账号过期，是否登陆？")
+					.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						startActivity(new Intent(UpdateDetailActivity.this,
+								LoginActivity.class));
+					}})
+					.setNegativeButton("取消",null)
+					.show();
+					return;
+				}
+				Toast.makeText(this, get.getString("message"),
+						Toast.LENGTH_SHORT).show();
+				return;
+			}
+			AppData.userInfo = get.getJSONObject("data").getJSONObject("user");
+			Toast.makeText(this, "修改成功",
+					Toast.LENGTH_SHORT).show();
+			headImgState = 0;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
 	@Override
@@ -373,6 +464,7 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
 					if(path.endsWith("jpg")||path.endsWith("png"))
 					{
 						headImgPath = path;
+						headImgState = 1;
 						Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
 						detail_user_img.setImageBitmap(bitmap);
 					}else{
@@ -573,7 +665,8 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,
 								int which) {
-							headImgPath = null;
+							headImgPath = "empty";
+							headImgState = 0;
 						}
 					})
 			.create();

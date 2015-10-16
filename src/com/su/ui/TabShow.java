@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.jgzs.lsw.R;
 import com.su.activity.LoginActivity;
+import com.su.activity.MatchActivity;
 import com.su.activity.MyRoomActivity;
 import com.su.activity.PlantListActivity;
 import com.su.activity.ProjectActivity;
@@ -61,7 +62,7 @@ public class TabShow extends TabActivity {
 		    		.setContent(new Intent(this , ProjectActivity.class)));
 		    
 		  mHost.addTab(mHost.newTabSpec("SORT").setIndicator("SORT")
-		    		.setContent(new Intent(this , PlantListActivity.class)));  
+		    		.setContent(new Intent(this , MatchActivity.class)));  
 			    
 		  mHost.addTab(mHost.newTabSpec("MORE").setIndicator("MORE")
 		    		.setContent(new Intent(this , MyRoomActivity.class)));

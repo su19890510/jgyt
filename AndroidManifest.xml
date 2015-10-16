@@ -41,6 +41,8 @@
         <activity android:name="com.su.activity.MyRoomActivity"/>
         <activity android:name="com.su.activity.UpdateDetailActivity"/>
         <activity android:name="com.su.activity.UpdateSignatureActivity"/>
+        <activity android:name="com.su.activity.ResetPasswordActivity"/>
+        <activity android:name="com.su.activity.MatchActivity"/>
         
         
         

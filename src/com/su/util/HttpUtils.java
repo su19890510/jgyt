@@ -66,16 +66,16 @@ public final class HttpUtils {
 
 	private static DefaultHttpClient getHttpClient() {
 		BasicHttpParams httpParams = new BasicHttpParams();   
-	    HttpConnectionParams.setConnectionTimeout(httpParams, 6000);  
-	    HttpConnectionParams.setSoTimeout(httpParams, 6000);  
-	    ConnManagerParams.setTimeout(httpParams, 6000);
+	    HttpConnectionParams.setConnectionTimeout(httpParams, 60000);  
+	    HttpConnectionParams.setSoTimeout(httpParams, 60000);  
+	    ConnManagerParams.setTimeout(httpParams, 60000);
 	    DefaultHttpClient mHttpClient = new DefaultHttpClient(httpParams);
 		mHttpClient.getParams().setParameter("http.protocol.content-charset",
 				"UTF-8");
 		mHttpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,
-				6000);
+				60000);
 		mHttpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT,
-				6000);
+				60000);
 
 		return mHttpClient;
 	}
@@ -185,8 +185,9 @@ public final class HttpUtils {
          {
 
            URL _url= new URL(url);
-           Log.v("suzhaohui",url);
+           Log.v("suzhaohui---a",url);
            String data = revertUrl(pairs);
+           Log.v("suzhaohui",data);
            HttpURLConnection  connection = (HttpURLConnection) _url.openConnection();
                 connection.setDoOutput(true);  
                 connection.setDoInput(true);  
@@ -196,7 +197,7 @@ public final class HttpUtils {
                 // 要注意的是connection.getOutputStream会隐含的进行connect。    
                 connection.connect();
                 OutputStreamWriter request = new OutputStreamWriter(connection.getOutputStream());
-                Log.v("suzhaohui",data);
+               
                 request.write(data);
                 request.flush();
                 request.close();

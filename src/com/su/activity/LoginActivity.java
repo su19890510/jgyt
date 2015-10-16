@@ -74,7 +74,7 @@ public class LoginActivity extends Activity  {
 		forgetPassword = (TextView) findViewById(R.id.login_activity_forget);
 		register = (TextView) findViewById(R.id.login_activity_register);
 		
-		
+		forgetPassword.setVisibility(View.INVISIBLE);
 		forgetPassword.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -131,7 +131,7 @@ public class LoginActivity extends Activity  {
 				NetManager bb=		NetManager.getInstance() ; //.toString();
 				tt.add(new BasicNameValuePair("name",name)); 
 				tt.add(new BasicNameValuePair("password",password));
-				JSONObject get = bb.sendHttpRequest("account/login", tt, 1);
+				JSONObject get = bb.sendHttpRequest("account/login", tt, 0);
 				if(get == null)
 				{
 					Log.v("suzhaohui","login get is null");
@@ -146,6 +146,10 @@ public class LoginActivity extends Activity  {
 						return;
 					}
 					AppData.userInfo = get.getJSONObject("data").getJSONObject("user");
+					AppData.app_id = AppData.userInfo.getString("app_id");
+					AppData.open_id = AppData.userInfo.getString("open_id");
+					AppData.access_token = AppData.userInfo.getString("access_token");
+				
 					finish();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

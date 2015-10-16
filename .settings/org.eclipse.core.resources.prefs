@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//res/layout/mimedetail.xml=UTF-8
 encoding//src/com/su/activity/UpdateDetailActivity.java=UTF-8
 encoding//src/com/su/util/HttpUtils.java=UTF-8
+encoding//src/com/su/util/UploadFileTask.java=UTF-8
 encoding/<project>=UTF-8

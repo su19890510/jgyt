@@ -60,6 +60,11 @@
     <string name="forget_tittle">忘记密码</string>  
     <string name="myroom_tittle">我的空间</string>
     <string name="myroom_update_password">修改密码</string>
+    <string name="match_title">比赛</string>
+    <string name="match_abstract">简介</string>
+    <string name="match_pro">专家</string>
+    <string name="match_news">新闻</string>
+    <string name="match_product">作品</string>
     
       
 </resources>

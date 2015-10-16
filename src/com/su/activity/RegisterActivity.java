@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.jgzs.lsw.R;
 import com.su.ui.TabShow;
+import com.su.util.AppData;
 import com.su.util.NetManager;
 
 public class RegisterActivity extends Activity  {
@@ -137,7 +138,10 @@ public class RegisterActivity extends Activity  {
 								Toast.LENGTH_SHORT).show();
 						return;
 					}
-					
+					AppData.userInfo = get.getJSONObject("data").getJSONObject("user");
+					AppData.app_id = AppData.userInfo.getString("app_id");
+					AppData.open_id = AppData.userInfo.getString("open_id");
+					AppData.access_token = AppData.userInfo.getString("access_token");
 					finish();
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

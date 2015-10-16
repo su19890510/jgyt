@@ -33,7 +33,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="center"
         		android:textSize="20sp"      		     		        		
-				android:textColor="#000000" /> 
+				android:textColor="#ffffff" /> 
 				
           	<TextView
           	     android:id="@+id/detail_save"
@@ -109,7 +109,7 @@
             android:layout_height="60.0dip"
             android:layout_centerVertical="true"
            android:layout_toLeftOf="@+id/row_img"
-            android:background="@drawable/test1"
+            android:background="@drawable/bj"
             android:scaleType="fitXY" />
 
   
@@ -272,7 +272,7 @@
         					android:layout_marginRight="10dip"
         					android:layout_centerVertical="true"
         					android:singleLine="true"
-        					android:maxLength="15"
+        					android:maxLength="35"
         					android:padding="8dp" 
         					android:text="比邻特"
         					android:textSize="18sp"		
@@ -327,7 +327,7 @@
         					android:layout_marginRight="10dip"
         					android:layout_centerVertical="true"
         					android:singleLine="true"
-        					android:maxLength="15"
+        					android:maxLength="50"
         					android:padding="8dp" 
         					android:text="比邻特"
         					android:textSize="18sp"		

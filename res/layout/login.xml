@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:clickable="true"
-    android:background="@drawable/login_bg"
+    android:background="@color/back_color"
     android:id="@+id/login_activity_main" >
     
  <TextView android:id="@+id/choose_mer_tital" 
@@ -19,21 +19,13 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical" >
 
-            <ImageView
-                android:layout_width="100dip"
-                android:layout_height="100dip"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/bj" />
-
 
             <EditText
                 android:id="@+id/login_activity_name"
                 android:layout_width="fill_parent"
                 android:layout_height="45dip"
-                android:layout_margin="8dip"
-                android:background="@drawable/login_input"
+                android:layout_marginTop="8dip"
+                android:background="@drawable/usermainpage_bg_center"
                 android:drawableLeft="@drawable/login_icon_account"
                 android:drawablePadding="25dip"
                 android:hint="请输入账号"
@@ -46,10 +38,8 @@
                 android:id="@+id/login_activity_password"
                 android:layout_width="fill_parent"
                 android:layout_height="45dip"
-                android:layout_marginBottom="8dip"
-                android:layout_marginLeft="8dip"
-                android:layout_marginRight="8dip"
-                android:background="@drawable/login_input"
+                android:layout_marginTop="1dip"
+                android:background="@drawable/usermainpage_bg_center"
                 android:drawableLeft="@drawable/login_icon_password"
                 android:drawablePadding="25dip"
                 android:hint="请输入密码"
@@ -64,6 +54,7 @@
                 android:layout_height="45dip"
                 android:layout_marginLeft="8dip"
                 android:layout_marginRight="8dip"
+                android:layout_marginTop="18dp"
                 android:background="@drawable/login_btn"
                 android:enabled="true"
                 android:shadowColor="#7f000000"
@@ -80,27 +71,17 @@
                 android:layout_marginTop="15dp" >
 
                 <TextView
-                    android:id="@+id/login_activity_forget"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center|center"
-                    android:textColor="#cdcdcf"
-                    android:textSize="16sp"
-                    android:text="忘记密码？"
-                     />
-
-                <TextView
                     android:id="@+id/login_activity_register"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="20"
                     android:gravity="center|center"
+                    android:text="注册新用户"
                     android:textColor="#cdcdcf"
-                    android:textSize="16sp"
-                    android:text="注册" />
-
+                    android:textSize="16sp" />
             </LinearLayout>
+
+            <TextView android:id="@+id/login_activity_forget" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center|center" android:textColor="#cdcdcf" android:textSize="16sp" android:text="忘记密码？" />
            
         </LinearLayout>
 

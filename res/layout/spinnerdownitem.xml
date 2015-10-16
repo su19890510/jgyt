@@ -24,6 +24,5 @@
         style="?android:attr/spinnerDropDownItemStyle"
     
         android:text="水仙"
-        android:textAlignment="center"
         android:textColor="#000000"
    />

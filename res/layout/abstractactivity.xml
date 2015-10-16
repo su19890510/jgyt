@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+>
+<!-- 
+ <ScrollView
+     android:id="@+id/scrollView1"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent" >
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:orientation="vertical" >
+     
+         <TextView
+             android:id="@+id/abstractactivity_matchtitle"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="河南省第一届景观大赛"
+             android:textSize="22sp" 
+             android:gravity="center"
+             android:textColor="#000000"
+           
+             />
+         
+         <TextView
+             android:id="@+id/abstractactivity_abstract_title"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="8dp"
+             android:text="大赛简介"
+             android:textSize="20sp" 
+             android:gravity="center|center"
+             android:textColor="#ffffff"
+             android:background="#DC143C"
+             />
+
+          <TextView
+              android:id="@+id/abstractactivity_abstract"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:gravity="left"
+              android:text="大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介"
+              android:textColor="#000000"
+              android:textSize="15sp" />
+          
+          
+          <TextView
+             android:id="@+id/abstractactivity_title_title"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="8dp"
+             android:text="大赛题目"
+             android:textSize="20sp" 
+             android:gravity="center|center"
+             android:textColor="#ffffff"
+             android:background="#DC143C"
+             />
+
+          <TextView
+              android:id="@+id/abstractactivity_title"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:gravity="left"
+              android:text="大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介"
+              android:textColor="#000000"
+              android:textSize="15sp" />
+          
+          
+          
+           <TextView
+             android:id="@+id/abstractactivity_need_title"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="8dp"
+             android:text="大赛要求"
+             android:textSize="20sp" 
+             android:gravity="center|center"
+             android:textColor="#ffffff"
+             android:background="#DC143C"
+             />
+
+          <TextView
+              android:id="@+id/abstractactivity_need"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:gravity="left"
+              android:text="大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介"
+              android:textColor="#000000"
+              android:textSize="15sp" />
+          
+         
+          
+          <TextView
+             android:id="@+id/abstractactivity_schedule_title"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="8dp"
+             android:text="大赛流程"
+             android:textSize="20sp" 
+             android:gravity="center|center"
+             android:textColor="#ffffff"
+             android:background="#DC143C"
+             />
+
+          <TextView
+              android:id="@+id/abstractactivity_schedule"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:gravity="left"
+              android:text="大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介"
+              android:textColor="#000000"
+              android:textSize="15sp" />
+          
+          
+          <TextView
+             android:id="@+id/abstractactivity_prize_title"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="8dp"
+             android:text="奖项设置"
+             android:textSize="20sp" 
+             android:gravity="center|center"
+             android:textColor="#ffffff"
+             android:background="#DC143C"
+             />
+
+          <TextView
+              android:id="@+id/abstractactivity_prize"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:gravity="left"
+              android:text="大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介"
+              android:textColor="#000000"
+              android:textSize="15sp" />
+          
+          
+          <TextView
+             android:id="@+id/abstractactivity_comm_title"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="8dp"
+             android:text="组委会"
+             android:textSize="20sp" 
+             android:gravity="center|center"
+             android:textColor="#ffffff"
+             android:background="#DC143C"
+             />
+
+          <TextView
+              android:id="@+id/abstractactivity_comm"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:gravity="left"
+              android:text="大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介"
+              android:textColor="#000000"
+              android:textSize="15sp" />
+          
+          
+          <TextView
+             android:id="@+id/abstractactivity_zhuban_title"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="8dp"
+             android:text="主办单位"
+             android:textSize="20sp" 
+             android:gravity="center|center"
+             android:textColor="#ffffff"
+             android:background="#DC143C"
+             />
+
+          <TextView
+              android:id="@+id/abstractactivity_zhuban"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:gravity="left"
+              android:text="大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介"
+              android:textColor="#000000"
+              android:textSize="15sp" />
+          
+            <TextView
+             android:id="@+id/abstractactivity_xieban_title"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="8dp"
+             android:text="协办单位"
+             android:textSize="20sp" 
+             android:gravity="center|center"
+             android:textColor="#ffffff"
+             android:background="#DC143C"
+             />
+
+          <TextView
+              android:id="@+id/abstractactivity_xieban"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:gravity="left"
+              android:text="大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介"
+              android:textColor="#000000"
+              android:textSize="15sp" />
+          
+          
+           <TextView
+             android:id="@+id/abstractactivity_chengban_title"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="8dp"
+             android:text="承办单位"
+             android:textSize="20sp" 
+             android:gravity="center|center"
+             android:textColor="#ffffff"
+             android:background="#DC143C"
+             />
+
+          <TextView
+              android:id="@+id/abstractactivity_chengban"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:gravity="left"
+              android:text="大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介大赛简介"
+              android:textColor="#000000"
+              android:textSize="15sp" />
+      
+     </LinearLayout>
+
+ </ScrollView>
+ -->
+ <WebView
+     android:id="@+id/webView1"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent" />
+   
+</LinearLayout>
