@@ -1,19 +1,19 @@
 package com.su.activity;
 
+import com.jgzs.lsw.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
-import com.jgzs.lsw.R;
 
 public class ForgetPasswordActivity extends Activity  {
 	private Button mLogin;

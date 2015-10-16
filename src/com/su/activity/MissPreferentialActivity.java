@@ -3,13 +3,14 @@ package com.su.activity;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.jgzs.lsw.R;
+import com.su.database.DataAccess;
+import com.su.ui.TabShow;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
-
-import com.jgzs.lsw.R;
-import com.su.ui.TabShow;
 
 public class MissPreferentialActivity extends Activity {
 	public static final String TAG = "nian"; 
@@ -19,8 +20,8 @@ public class MissPreferentialActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
+        DataAccess.init(this);
         new Timer().schedule(new TimerTask() {
-			
 			@Override
 			public void run() {
 				

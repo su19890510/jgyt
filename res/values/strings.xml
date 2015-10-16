@@ -55,7 +55,7 @@
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
     <string name="plant_tittle">植物手册</string>
     <string name="project_tittle">景观案例</string>
-    <string name="login_tittle">登陆</string>
+    <string name="login_tittle">登录</string>
     <string name="register_tittle">注册</string>
     <string name="forget_tittle">忘记密码</string>  
     <string name="myroom_tittle">我的空间</string>

@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import com.jgzs.lsw.R;
 import com.su.ImageLoad.ImageLoader;
 import com.su.model.PlantListModel;
-
+import com.su.util.HttpMethod;
 import com.su.util.NetManager;
 
 import android.annotation.SuppressLint;
@@ -31,15 +31,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 // 156 50 -44
 public class PlantListActivity extends Activity implements IXListViewListener{
 	private static final String DIS_DATE[] = { "全部植物类型", "常绿乔木", "落叶乔木",
@@ -374,7 +373,7 @@ public class PlantListActivity extends Activity implements IXListViewListener{
 		{
 			tt.add(new BasicNameValuePair("periodId", String.valueOf(periodId)));
 		}
-		JSONObject get = bb.sendHttpRequest("plant/search", tt, 0);
+		JSONObject get = bb.sendHttpRequest("plant/search", tt, HttpMethod.GET);
 		try {
 			if(get != null)
 			{  

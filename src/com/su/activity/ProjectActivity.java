@@ -14,9 +14,8 @@ import org.json.JSONObject;
 
 import com.jgzs.lsw.R;
 import com.su.ImageLoad.ImageLoader;
-import com.su.model.PlantListModel;
 import com.su.model.ProjectListModel;
-
+import com.su.util.HttpMethod;
 import com.su.util.NetManager;
 
 import android.annotation.SuppressLint;
@@ -24,7 +23,6 @@ import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,18 +30,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 // 156 50 -44
 public class ProjectActivity extends Activity implements IXListViewListener{
 	private static final String DIS_DATE[] = { "全部分类", "居住景观", "商业办公",
@@ -406,7 +403,7 @@ public class ProjectActivity extends Activity implements IXListViewListener{
 		{
 			tt.add(new BasicNameValuePair("sid", String.valueOf(sid)));
 		}
-		JSONObject get = bb.sendHttpRequest("item/search", tt, 0);
+		JSONObject get = bb.sendHttpRequest("item/search", tt, HttpMethod.GET);
 		try {
 			if(get != null)
 			{  
