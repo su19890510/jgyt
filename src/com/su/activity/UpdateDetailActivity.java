@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.jgzs.lsw.R;
+import com.su.database.DataAccess;
 import com.su.util.AppData;
 import com.su.util.HttpMethod;
 import com.su.util.NetManager;
@@ -276,6 +277,7 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
                 if (prostr.length() > 0) {
                     tt.add(new BasicNameValuePair("profile", prostr));
                 }
+                /**
                 if (AppData.userInfo != null) {
                     try {
                         tt.add(new BasicNameValuePair("app_id", AppData.userInfo.getString("app_id")));
@@ -287,6 +289,12 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
                     }
 
                 }
+                **/
+                
+                tt.add(new BasicNameValuePair("app_id", DataAccess.getAppId()));
+                tt.add(new BasicNameValuePair("open_id", DataAccess.getOpenId()));
+                tt.add(new BasicNameValuePair("access_token", DataAccess.getAccessToken()));
+                
                 JSONObject get = bb.sendHttpRequest("account/profile", tt, HttpMethod.POST);
 
                 try {

@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.jgzs.lsw.R;
+import com.su.database.DataAccess;
 import com.su.util.AppData;
 import com.su.util.HttpMethod;
 import com.su.util.NetManager;
@@ -124,7 +125,9 @@ public class LoginActivity extends Activity {
                         Toast.makeText(login, get.getString("message"), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    AppData.userInfo = get.getJSONObject("data").getJSONObject("user");
+                    JSONObject userJson = get.getJSONObject("data").getJSONObject("user");
+                    AppData.userInfo = userJson;
+                    DataAccess.saveSecurity(userJson.getString("open_id"), userJson.getString("app_id"), userJson.getString("access_token"));
                     finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
