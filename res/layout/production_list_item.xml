@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:orientation="vertical"
+    android:layout_margin="26dp"
+    android:background="#ffffff" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+         >
+
+        <ImageView
+            android:id="@+id/production_activity_headimg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/bj" />
+
+        <TextView
+            android:id="@+id/production_activity_title"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="9"
+            android:gravity="center|left"
+            android:text="参赛作品名称"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/production_activity_vote"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center|center"
+            android:layout_weight="3"
+            android:layout_margin="5dp"
+            android:text="600票"
+            android:textColor="#ffffff"
+            android:background="@drawable/login_red_btn_v1_5_hover" />
+        
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/production_activity_cover"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/test2" />
+
+</LinearLayout>

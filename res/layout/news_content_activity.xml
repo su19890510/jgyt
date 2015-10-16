@@ -7,6 +7,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         style="@style/top_text_style"
+        android:textSize="15sp"
         android:text="@string/plant_tittle"/>
     <WebView
         android:id="@+id/news_content_activity_webview"

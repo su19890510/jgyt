@@ -14,43 +14,44 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.jgzs.lsw.R;
 import com.su.ImageLoad.ImageLoader;
-import com.su.model.ProfessionModel;
+import com.su.activity.NewsContentActivity;
+import com.su.framgment.NewsFragement.HoldView;
+import com.su.framgment.NewsFragement.NearAdapter;
+import com.su.model.NewsModel;
+import com.su.model.ProductionModel;
 import com.su.util.HttpMethod;
 import com.su.util.NetManager;
 
-public class ProfessionalFragment extends Fragment implements IXListViewListener{
+public class ProductionFragement extends Fragment implements IXListViewListener{
 	
 	
 	
 	public NearAdapter nAdapter;		
 	public XListView showList;
 	public Activity profession;	
-	private ArrayList<ProfessionModel> items = new ArrayList<ProfessionModel>();
+	private int page = 1;
+	private ArrayList<ProductionModel> items = new ArrayList<ProductionModel>();
 	View startView;
-	public ProfessionalFragment(Activity _matchActivity)
+	public ProductionFragement(Activity _matchActivity)
 	{
 		profession = _matchActivity;
 	}
@@ -58,7 +59,7 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-	    startView=inflater.inflate(R.layout.profession_acitivy, null);
+	    startView=inflater.inflate(R.layout.production_activity, null);
 		super.onCreate(savedInstanceState);
 		findView();
 		initSetting();
@@ -68,8 +69,8 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 	
 	public void findView() {
 	
-		showList = (XListView) startView.findViewById(R.id.pro_activity_list);
-		showList.setPullLoadEnable(false);
+		showList = (XListView) startView.findViewById(R.id.production_activity_list);
+		showList.setPullLoadEnable(true);
 		showList.setPullRefreshEnable(true);
 	    showList.setXListViewListener(this);
 		nAdapter = new NearAdapter(profession);
@@ -79,7 +80,23 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 	public void initSetting() {	
 		showList.setAdapter(nAdapter);
 		showList.setDivider(null);
-		showList.setDividerHeight(1);	
+		showList.setDividerHeight(15);	
+		
+		showList.setOnItemClickListener(new OnItemClickListener() {
+			
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			Intent picIntent = new Intent(profession,
+					NewsContentActivity.class);
+			
+			ProductionModel model = items.get(arg2 -1);
+			picIntent.putExtra("content", model.getDescription());
+			picIntent.putExtra("title", model.getTitle());	
+			picIntent.putStringArrayListExtra("imagelist", (ArrayList<String>) model.getImageList());
+			profession.startActivity(picIntent);
+			}
+		});
 	}
 	
 	
@@ -114,16 +131,17 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 			if (convertView == null) {
 				LayoutInflater inflater = LayoutInflater
 						.from(profession);
-				convertView = inflater.inflate(R.layout.pro_item, null);
+				convertView = inflater.inflate(R.layout.production_list_item, null);
 				holdview = new HoldView();
-				holdview.name = (TextView) convertView
-						.findViewById(R.id.pro_activity_item_name);
-				holdview.title = (TextView)convertView
-						.findViewById(R.id.pro_activity_item_tittle);
-				holdview.pro = (TextView)convertView
-						.findViewById(R.id.pro_activity_item_pro);
-				holdview.headimg = (ImageView)convertView
-						.findViewById(R.id.pro_item_head);
+				holdview.title = (TextView) convertView
+						.findViewById(R.id.production_activity_title);
+				holdview.vote = (TextView) convertView
+						.findViewById(R.id.production_activity_vote);
+				holdview.head = (ImageView) convertView
+						.findViewById(R.id.production_activity_headimg);
+				holdview.cover = (ImageView) convertView
+						.findViewById(R.id.production_activity_cover);
+			
 				convertView.setTag(holdview);
 				
 			
@@ -136,12 +154,16 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 			if(position < items.size())
 			{
 				Log.v("position",String.valueOf(position));
-				ProfessionModel model = items.get(position);
-				holdview.name.setText(model.getName());
+				ProductionModel model = items.get(position);
 				holdview.title.setText(model.getTitle());
-				holdview.pro.setText(model.getPro());
-				Log.v("cover",model.getImgurl());
-				mImageLoader.DisplayImage(model.getImgurl(), holdview.headimg, false);
+				holdview.vote.setText(String.valueOf(model.getVoteCount()+"票"));
+				
+				mImageLoader.DisplayImage(model.getHeadurl(), holdview.head, false);
+				if(model.getImageList().size() > 0)
+				{
+					mImageLoader.DisplayImage(model.getImageList().get(0), holdview.cover, false);
+				}
+
 			}
 	
 			return convertView;
@@ -150,8 +172,8 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 	}
 	
 	class HoldView {
-		TextView name, title, pro;
-		ImageView headimg;
+		TextView title,vote;
+		ImageView head,cover;
 	}
 
 	private void onLoad() {
@@ -165,6 +187,7 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 	public void onRefresh() {
 		items.clear();
 		getProList();
+		page = 1;
 		nAdapter = new NearAdapter(profession);
 		showList.setAdapter(nAdapter);
 		onLoad();
@@ -173,7 +196,10 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 
 	@Override
 	public void onLoadMore() {
-		
+		page++;
+		int ret = getProList();
+		nAdapter.notifyDataSetChanged();
+		onLoad();
 	}
 	
 	private int getProList()
@@ -182,12 +208,15 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 		NetManager bb=NetManager.getInstance() ; //.toString();	
 		int matchID = 0;
 		try {
+			if(AbstractFragment.match != null)
 			matchID = AbstractFragment.match.getJSONObject("data").getJSONObject("contest").getInt("id");
-		} catch (JSONException e1) {
+		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		JSONObject get = bb.sendHttpRequest("contest/judges/"+String.valueOf(matchID), tt, HttpMethod.POST);
+		tt.add(new BasicNameValuePair("contestId", String.valueOf(matchID)));
+		tt.add(new BasicNameValuePair("page", String.valueOf(page)));
+		JSONObject get = bb.sendHttpRequest("contest/entry", tt, HttpMethod.GET);
 		try {
 			if(get != null)
 			{  
@@ -215,15 +244,26 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 				}
 				
 				JSONObject data = get.getJSONObject("data");
-				JSONArray plantList = data.getJSONArray("judgesList");
+				JSONArray plantList = data.getJSONArray("contestEntryList");
 				for(int i = 0; i < plantList.length();i++)
 				{
 					JSONObject item = (JSONObject)plantList.opt(i);
-					ProfessionModel mode = new ProfessionModel();				
-					mode.setName(item.getString("name"));
+					ProductionModel mode = new ProductionModel();				
 					mode.setTitle(item.getString("title"));
-					mode.setPro(item.getString("profile"));
-					mode.setImgurl(item.getString("avatar"));
+					mode.setProductionid(item.getInt("id"));
+					if(!item.isNull("user") )
+					mode.setHeadurl(item.getJSONObject("user").getString("avatar"));
+					mode.setVoteCount(item.getInt("voteCount"));
+					mode.setDescription(item.getString("description"));
+					
+					JSONArray imageList = item.getJSONArray("mediaList");
+					ArrayList<String> imgList = new ArrayList<String>();
+					for(int n = 0 ; n < imageList.length();n++)
+					{
+						String imageitem =  (String) imageList.get(n);
+						imgList.add(imageitem);							
+					}
+					mode.setImageList(imgList);
 					items.add(mode);
 			}
 			
@@ -255,4 +295,14 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 		            super.handleMessage(msg);
 		        }
 		};
+		public void onResume()
+		{
+			super.onResume();
+			if(items.size() <= 0)
+			{
+				onRefresh();
+			}
+		}
+		
 }
+

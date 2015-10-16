@@ -6,6 +6,7 @@ import com.jgzs.lsw.R;
 import com.su.framgment.AbstractFragment;
 import com.su.framgment.MimeStartFragment;
 import com.su.framgment.NewsFragement;
+import com.su.framgment.ProductionFragement;
 import com.su.framgment.ProfessionalFragment;
 import com.su.util.MyFragmentPagerAdapter;
 
@@ -73,7 +74,7 @@ public class MatchActivity extends FragmentActivity implements OnClickListener {
 	       Fragment Fragment01=new AbstractFragment(this);
 	       Fragment Fragment02=new NewsFragement(this);
 	       Fragment Fragment03=new ProfessionalFragment(this);
-	       Fragment Fragment04=new AbstractFragment(this);
+	       Fragment Fragment04=new ProductionFragement(this);
 	       
 
 

@@ -88,13 +88,13 @@ public class NewsFragement extends Fragment implements IXListViewListener{
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-//			Intent picIntent = new Intent(profession,
-//					NewsContentActivity.class);
-//			
-//			NewsModel model = items.get(arg2 -1);
-//			picIntent.putExtra("content", model.getContent());
-//			picIntent.putExtra("title", model.getTitle());				
-//			profession.startActivity(picIntent);
+			Intent picIntent = new Intent(profession,
+					NewsContentActivity.class);
+			
+			NewsModel model = items.get(arg2 -1);
+			picIntent.putExtra("content", model.getContent());
+			picIntent.putExtra("title", model.getTitle());				
+			profession.startActivity(picIntent);
 			}
 		});
 	}
@@ -195,7 +195,7 @@ public class NewsFragement extends Fragment implements IXListViewListener{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		JSONObject get = bb.sendHttpRequest("contest/news/"+String.valueOf(matchID), tt, HttpMethod.POST);
+		JSONObject get = bb.sendHttpRequest("contest/news/"+String.valueOf(matchID), tt, HttpMethod.GET);
 		try {
 			if(get != null)
 			{  

@@ -114,7 +114,7 @@ public class LoginActivity extends Activity {
                 NetManager bb = NetManager.getInstance();
                 tt.add(new BasicNameValuePair("name", name));
                 tt.add(new BasicNameValuePair("password", password));
-                JSONObject get = bb.sendHttpRequest("account/login", tt, HttpMethod.POST);
+                JSONObject get = bb.sendHttpRequest("account/login", tt, HttpMethod.GET);
                 if (get == null) {
                     Log.v("suzhaohui", "login get is null");
                     return;

@@ -7,15 +7,14 @@
     >
 
        <org.com.cctest.view.XListView
-         android:id="@+id/pro_activity_list"
+         android:id="@+id/production_activity_list"
          android:layout_width="match_parent"
          android:layout_height="match_parent" 
-         android:layout_marginLeft="2dp"
-         android:layout_marginRight="2dp"
-         android:layout_marginTop="3dp"
-         android:layout_marginBottom="3dp"
-   
-         android:scrollbars="none"
+         android:layout_marginLeft="3dp" 
+         android:layout_marginRight="3dp"   
+         android:layout_marginTop="1dp"
+         android:layout_marginBottom="1dp"
+         android:scrollbars="vertical"
          android:cacheColorHint="#00000000"
          android:divider="#00000000"
          android:dividerHeight="20dp">
