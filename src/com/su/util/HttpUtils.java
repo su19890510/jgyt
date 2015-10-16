@@ -35,20 +35,6 @@ public final class HttpUtils {
 
     private HttpUtils() {}
 
-<<<<<<< HEAD
-	private static DefaultHttpClient getHttpClient() {
-		BasicHttpParams httpParams = new BasicHttpParams();   
-	    HttpConnectionParams.setConnectionTimeout(httpParams, 60000);  
-	    HttpConnectionParams.setSoTimeout(httpParams, 60000);  
-	    ConnManagerParams.setTimeout(httpParams, 60000);
-	    DefaultHttpClient mHttpClient = new DefaultHttpClient(httpParams);
-		mHttpClient.getParams().setParameter("http.protocol.content-charset",
-				"UTF-8");
-		mHttpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,
-				60000);
-		mHttpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT,
-				60000);
-=======
     public static String getHttpEntity(String url, List<NameValuePair> params, HttpMethod method) {
         switch (method) {
             case GET:
@@ -59,7 +45,6 @@ public final class HttpUtils {
                 return HttpUtils.HttpPost(url, params);
         }
     }
->>>>>>> 435cbe957b8ee079d517615a2babaee5440b35f5
 
     private static DefaultHttpClient getHttpClient() {
         BasicHttpParams httpParams = new BasicHttpParams();
@@ -108,25 +93,6 @@ public final class HttpUtils {
 
     private static CookieStore cookies;
 
-<<<<<<< HEAD
-           URL _url= new URL(url);
-           Log.v("suzhaohui---a",url);
-           String data = revertUrl(pairs);
-           Log.v("suzhaohui",data);
-           HttpURLConnection  connection = (HttpURLConnection) _url.openConnection();
-                connection.setDoOutput(true);  
-                connection.setDoInput(true);  
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");    
-                // 连接，从postUrl.openConnection()至此的配置必须要在connect之前完成，  
-                // 要注意的是connection.getOutputStream会隐含的进行connect。    
-                connection.connect();
-                OutputStreamWriter request = new OutputStreamWriter(connection.getOutputStream());
-               
-                request.write(data);
-                request.flush();
-                request.close();
-=======
     private static String HttpPost(String url, List<NameValuePair> pairs) {
         // DefaultHttpClient mHttpClient = getHttpClient();
         // HttpPost httpPost = new HttpPost(url);
@@ -171,7 +137,6 @@ public final class HttpUtils {
         // e.printStackTrace();
         // }
         try {
->>>>>>> 435cbe957b8ee079d517615a2babaee5440b35f5
 
             URL _url = new URL(url);
             Log.v("suzhaohui", url);

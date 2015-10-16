@@ -38,6 +38,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import com.jgzs.lsw.R;
 import com.su.ImageLoad.ImageLoader;
 import com.su.model.ProfessionModel;
+import com.su.util.HttpMethod;
 import com.su.util.NetManager;
 
 public class ProfessionalFragment extends Fragment implements IXListViewListener{
@@ -186,7 +187,7 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		JSONObject get = bb.sendHttpRequest("contest/judges/"+String.valueOf(matchID), tt, 0);
+		JSONObject get = bb.sendHttpRequest("contest/judges/"+String.valueOf(matchID), tt, HttpMethod.POST);
 		try {
 			if(get != null)
 			{  

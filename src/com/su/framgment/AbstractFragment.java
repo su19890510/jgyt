@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jgzs.lsw.R;
+import com.su.util.HttpMethod;
 import com.su.util.NetManager;
 
 public class AbstractFragment extends Fragment implements OnClickListener{
@@ -82,7 +83,7 @@ public class AbstractFragment extends Fragment implements OnClickListener{
 		Log.v("suzhaohui","!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		List<NameValuePair>  tt = new ArrayList<NameValuePair>();
 		NetManager bb=		NetManager.getInstance() ; //.toString();		
-		JSONObject get = bb.sendHttpRequest("contest/active", tt, 0);
+		JSONObject get = bb.sendHttpRequest("contest/active", tt,HttpMethod.POST);
 		if(get == null)
 		{
 			return;

@@ -85,7 +85,7 @@ public class MatchActivity extends FragmentActivity implements OnClickListener {
 	        
 	        
 	        mPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentsList));
-	        mPager.setCurrentItem(1);
+	        mPager.setCurrentItem(0);
 	        mPager.setOnPageChangeListener(new MyOnPageChangeListener());
 	    }
 

@@ -40,6 +40,7 @@ import com.su.framgment.ProfessionalFragment.NearAdapter;
 import com.su.model.NewsModel;
 import com.su.model.PlantListModel;
 import com.su.model.ProfessionModel;
+import com.su.util.HttpMethod;
 import com.su.util.NetManager;
 
 public class NewsFragement extends Fragment implements IXListViewListener{
@@ -194,7 +195,7 @@ public class NewsFragement extends Fragment implements IXListViewListener{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		JSONObject get = bb.sendHttpRequest("contest/news/"+String.valueOf(matchID), tt, 0);
+		JSONObject get = bb.sendHttpRequest("contest/news/"+String.valueOf(matchID), tt, HttpMethod.POST);
 		try {
 			if(get != null)
 			{  

@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
-<<<<<<< HEAD
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,10 +23,8 @@ import com.jgzs.lsw.R;
 import com.su.ImageLoad.ImageLoader;
 import com.su.util.AppData;
 
-=======
 import android.widget.RelativeLayout;
 
->>>>>>> 435cbe957b8ee079d517615a2babaee5440b35f5
 public class MyRoomActivity extends Activity  implements OnClickListener{
 
 	private Button button;

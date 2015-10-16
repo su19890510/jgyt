@@ -25,7 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jgzs.lsw.R;
+import com.su.database.DataAccess;
 import com.su.util.AppData;
+import com.su.util.HttpMethod;
 import com.su.util.NetManager;
 
 public class ResetPasswordActivity extends Activity  {
@@ -96,12 +98,13 @@ public class ResetPasswordActivity extends Activity  {
 				tt.add(new BasicNameValuePair("new_passwd",newpassword));
 				if(AppData.userInfo != null)
 				 {
-					 tt.add(new BasicNameValuePair("app_id",AppData.app_id));
-					 tt.add(new BasicNameValuePair("open_id",AppData.open_id));
-					 tt.add(new BasicNameValuePair("access_token",AppData.access_token));
+					 tt.add(new BasicNameValuePair("app_id", DataAccess.getAppId()));
+		                tt.add(new BasicNameValuePair("open_id", DataAccess.getOpenId()));
+		                tt.add(new BasicNameValuePair("access_token", DataAccess.getAccessToken()));
+		                
 					
 				 }
-				JSONObject get = bb.sendHttpRequest("account/reset_passwd", tt, 0);
+				JSONObject get = bb.sendHttpRequest("account/reset_passwd", tt, HttpMethod.GET);
 				if(get == null)
 				{
 					Log.v("suzhaohui","login get is null");
