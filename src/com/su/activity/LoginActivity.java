@@ -104,15 +104,13 @@ public class LoginActivity extends Activity {
                     return;
                 }
 
-
-
                 if (password.trim().length() <= 0) {
                     Toast.makeText(login, "密码不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 List<NameValuePair> tt = new ArrayList<NameValuePair>();
-                NetManager bb = NetManager.getInstance(); // .toString();
+                NetManager bb = NetManager.getInstance();
                 tt.add(new BasicNameValuePair("name", name));
                 tt.add(new BasicNameValuePair("password", password));
                 JSONObject get = bb.sendHttpRequest("account/login", tt, HttpMethod.POST);
@@ -129,18 +127,14 @@ public class LoginActivity extends Activity {
                     AppData.userInfo = get.getJSONObject("data").getJSONObject("user");
                     finish();
                 } catch (JSONException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-
             }
-
         });
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // TODO Auto-generated method stub
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (getCurrentFocus() != null && getCurrentFocus().getWindowToken() != null) {
                 manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -148,6 +142,4 @@ public class LoginActivity extends Activity {
         }
         return super.onTouchEvent(event);
     }
-
-
 }
