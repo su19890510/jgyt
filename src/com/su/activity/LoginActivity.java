@@ -13,7 +13,7 @@ import com.su.database.DataAccess;
 import com.su.util.AppData;
 import com.su.util.HttpMethod;
 import com.su.util.NetManager;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
+    
     private Button mLogin;
     private TextView forgetPassword;
     private TextView register;
@@ -40,15 +41,14 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         setContentView(R.layout.login);
         login = this;
         manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         LinearLayout activity_main = (LinearLayout) findViewById(R.id.login_activity_main);
         activity_main.setOnTouchListener(new OnTouchListener() {
-
+            
+            @SuppressLint("ClickableViewAccessibility")
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                Log.v("suzhaohui", "listener is enter");
                 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 return imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
@@ -64,28 +64,20 @@ public class LoginActivity extends Activity {
         mLogin = (Button) findViewById(R.id.login_activity_login);
         forgetPassword = (TextView) findViewById(R.id.login_activity_forget);
         register = (TextView) findViewById(R.id.login_activity_register);
-
-
         forgetPassword.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // 调到拨号界面
                 startActivity(new Intent(LoginActivity.this, ForgetPasswordActivity.class));
                 finish();
             }
         });
-
-
         register.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // 调到拨号界面
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 finish();
             }
         });
-
-
     }
 
     /**
@@ -94,22 +86,17 @@ public class LoginActivity extends Activity {
     private void setListener() {
         // 登录按钮监听
         mLogin.setOnClickListener(new OnClickListener() {
-
             public void onClick(View v) {
-                Log.v("suzhaohui", "onclicked");
                 String name = String.valueOf(((TextView) findViewById(R.id.login_activity_name)).getText());
                 String password = String.valueOf(((TextView) findViewById(R.id.login_activity_password)).getText());
-
                 if (name.trim().length() <= 0) {
                     Toast.makeText(login, "名字不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (password.trim().length() <= 0) {
                     Toast.makeText(login, "密码不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 List<NameValuePair> tt = new ArrayList<NameValuePair>();
                 NetManager bb = NetManager.getInstance();
                 tt.add(new BasicNameValuePair("name", name));

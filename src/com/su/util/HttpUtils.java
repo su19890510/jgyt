@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.CookieStore;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -15,14 +14,19 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.conn.params.ConnManagerParams;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -38,11 +42,11 @@ public final class HttpUtils {
     public static String getHttpEntity(String url, List<NameValuePair> params, HttpMethod method) {
         switch (method) {
             case GET:
-                return HttpUtils.HttpGet(url);
+                return HttpUtils.sendGet(url);
             case POST:
-                return HttpUtils.HttpPost(url, params);
+                return HttpUtils.sendPost(url, params);
             default:
-                return HttpUtils.HttpPost(url, params);
+                return HttpUtils.sendPost(url, params);
         }
     }
 
@@ -58,10 +62,10 @@ public final class HttpUtils {
         return mHttpClient;
     }
 
-    private static String HttpGet(String url) {
+    private static String sendGet(String url) {
         DefaultHttpClient mHttpClient = getHttpClient();
         HttpGet httpGet = new HttpGet(url);
-        Log.v("suzhaohui", url);
+        Log.v("API SendGet", url);
         try {
             HttpResponse httpResponse = mHttpClient.execute(httpGet);
             HttpEntity httpEntity = httpResponse.getEntity();
@@ -69,7 +73,6 @@ public final class HttpUtils {
                 int status = httpResponse.getStatusLine().getStatusCode();
                 if (status == HttpStatus.SC_OK) {
                     String response = EntityUtils.toString(httpEntity, "UTF-8");
-                    Log.v("suzhaohui", response);
                     return response;
                 }
             }
@@ -90,54 +93,62 @@ public final class HttpUtils {
         }
         return null;
     }
-
-    private static CookieStore cookies;
-
-    private static String HttpPost(String url, List<NameValuePair> pairs) {
-        // DefaultHttpClient mHttpClient = getHttpClient();
-        // HttpPost httpPost = new HttpPost(url);
-        // //写cookie
-        // String response = null;
-        // try {
-        // if(pairs!=null){
-        // for (NameValuePair pair : pairs)
-        // {
-        // Log.v("suzhaohui",pair.getValue());
-        // }
-        // httpPost.setEntity(new UrlEncodedFormEntity(pairs, "UTF-8"));
-        // }
-        // HttpResponse httpResponse = mHttpClient.execute(httpPost);
-        // HttpEntity httpEntity = httpResponse.getEntity();
-        // if (httpEntity != null) {
-        // int status = httpResponse.getStatusLine().getStatusCode();
-        // if (status == HttpStatus.SC_OK) {
-        // response = EntityUtils.toString(httpEntity, "UTF-8");
-        //
-        // return response;
-        // }
-        // }
-        // }
-        // catch (SocketTimeoutException e) {
-        // e.printStackTrace();
-        // Log.v("suzhaohui","timeout");
-        // return "{error:timeOut}";
-        // }
-        // catch (HttpHostConnectException e) {
-        // e.printStackTrace();
-        // Log.v("suzhaohui","netError");
-        // return "{error:netError}";
-        // }
-        // catch (ClientProtocolException e){
-        // e.printStackTrace();
-        // }
-        // catch (IOException e){
-        // e.printStackTrace();
-        // }
-        // catch (Exception e) {
-        // e.printStackTrace();
-        // }
+    
+    private static String sendPost(String url, List<NameValuePair> pairs) {
         try {
+            JSONObject jsonObj = new JSONObject();
+            
+            for (NameValuePair nameValuePair : pairs) {
+                jsonObj.put(nameValuePair.getName(), nameValuePair.getValue());
+            }
+            
+            HttpPost httpPost = new HttpPost(url);
+            StringEntity entity = new StringEntity(jsonObj.toString(), HTTP.UTF_8);
+            entity.setContentType("application/json");
+            httpPost.setEntity(entity);
+            
+            httpPost.setHeader("Accept", "application/json");
+            httpPost.setHeader("Content-type", "application/json");
+            
+            DefaultHttpClient client = getHttpClient();
+            HttpResponse response = client.execute(httpPost);
+            HttpEntity httpEntity = response.getEntity();
+            if (httpEntity != null) {
+                int status = response.getStatusLine().getStatusCode();
+                if (status == HttpStatus.SC_OK) {
+                    return EntityUtils.toString(httpEntity, "UTF-8");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        /**
+        try {
+            UrlEncodedFormEntity requestHttpEntity = new UrlEncodedFormEntity(pairs, "UTF-8");
+            requestHttpEntity.setContentEncoding(HTTP.UTF_8);
+            requestHttpEntity.setContentType("application/json");
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.setEntity(requestHttpEntity);
+            httpPost.setHeader("Content-Type", "application/json");
+            httpPost.setHeader("Accept", "application/json");
+            DefaultHttpClient mHttpClient = getHttpClient();
+            HttpResponse response = mHttpClient.execute(httpPost);
+            HttpEntity httpEntity = response.getEntity();
+            if (httpEntity != null) {
+                int status = response.getStatusLine().getStatusCode();
+                if (status == HttpStatus.SC_OK) {
+                    return EntityUtils.toString(httpEntity, "UTF-8");
+                }
+            }
+        } catch (Exception e) {
+            Log.v("API Error", "Send API Request[" + url + "] Error.", e);
+        }
+        **/
+        return null;
+    }
 
+    static String httpPost(String url, List<NameValuePair> pairs) {
+        try {
             URL _url = new URL(url);
             Log.v("suzhaohui", url);
             String data = revertUrl(pairs);
@@ -154,28 +165,20 @@ public final class HttpUtils {
             request.write(data);
             request.flush();
             request.close();
-
             String line = "";
             InputStreamReader isr = new InputStreamReader(connection.getInputStream());
             BufferedReader reader = new BufferedReader(isr);
-
             StringBuffer sb = new StringBuffer();
-
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-
             String response = sb.toString();
             // response.getEntity().getContent();
-
             Log.i("Test", "updated response: " + response);
-
-
             return response;
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -205,11 +208,9 @@ public final class HttpUtils {
     }
 
     public static String getConnectionInfo(Context context) {
-        // 获取网络连接管理�?
         ConnectivityManager connectionManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        // 获取网络的状态信息，有下面三种方�?
         NetworkInfo networkInfo = connectionManager.getActiveNetworkInfo();
-        return null;
+        return networkInfo.getReason();
         // NetworkInfo 有一下方�?
         // getDetailedState()：获取详细状态�??
         // getExtraInfo()：获取附加信息�??
@@ -242,31 +243,16 @@ public final class HttpUtils {
         // 用联通uninet方式
         // getExtraInfo 的�?�是uninet
     }
-
-    // class UTF8PostMethod extends PostMethod{
-    // public UTF8PostMethod(String url){
-    // super(url);
-    // }
-    // @Override
-    // public String getRequestCharSet() {
-    // //return super.getRequestCharSet();
-    // return "gb2312";
-    // }
-    // }
+    
     private static String revertUrl(List<NameValuePair> params) {
         String url = "";
         StringBuilder sb = new StringBuilder("");
-
-
-
         boolean needRemove = false;
         for (NameValuePair pair : params) {
             sb.append(pair.getName()).append("=").append(pair.getValue()).append("&");
             needRemove = true;
         }
-
         url = needRemove ? sb.substring(0, sb.length() - 1) : sb.toString();
         return url;
     }
 }
-
