@@ -219,7 +219,7 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
                     tt.add(new BasicNameValuePair("name", nickstr));
                 }
                 if (truenamestr.length() > 0) {
-                    tt.add(new BasicNameValuePair("fullname ", truenamestr));
+                    tt.add(new BasicNameValuePair("fullname", truenamestr));
                 }
                 if (phonestr.length() > 0) {
                     tt.add(new BasicNameValuePair("contact", phonestr));

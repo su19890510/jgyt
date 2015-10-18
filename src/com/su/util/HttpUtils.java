@@ -1,10 +1,10 @@
 package com.su.util;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -158,27 +158,30 @@ public final class HttpUtils {
         try {
             URL _url = new URL(url);
             String data = revertUrl(pairs);
-            Log.v("API", "Http Post " + url + " --data " + data);
             HttpURLConnection connection = (HttpURLConnection) _url.openConnection();
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            // 连接，从postUrl.openConnection()至此的配置必须要在connect之前完成，
-            // 要注意的是connection.getOutputStream会隐含的进行connect。
-            connection.connect();
-            OutputStreamWriter request = new OutputStreamWriter(connection.getOutputStream());
-            request.write(data);
-            request.flush();
-            request.close();
-            String line = "";
-            InputStreamReader isr = new InputStreamReader(connection.getInputStream());
-            BufferedReader reader = new BufferedReader(isr);
-            StringBuffer sb = new StringBuffer();
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
+            connection.setRequestProperty("Accept", "*/*");
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36");
+            
+//            connection.connect();
+
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            
+            
+            DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+            wr.writeBytes(data);
+            wr.flush();
+            wr.close();
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
             }
-            return sb.toString();
+            in.close();
+            return response.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
