@@ -83,5 +83,9 @@
         <item name="@android:windowEnterAnimation">@anim/in</item>
         <item name="@android:windowExitAnimation">@anim/out</item>
     </style>
-
+<style name="AppTheme.Dialog" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowBackground">@drawable/usermainpage_bg_center</item>
+</style>
 </resources>

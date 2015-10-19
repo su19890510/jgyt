@@ -5,12 +5,36 @@
     android:orientation="vertical"
     android:background="@drawable/login_bg"
     >
-   <!-- android:background="@color/back_color"  --> 
-      <TextView android:id="@+id/task_activity_title" 
+   <!-- android:background="@color/back_color"  -->
+
+    <RelativeLayout
+        android:id="@+id/title"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        style="@style/top_text_style"
-        android:text="@string/task_title"/>
+        android:layout_height="50dip"
+        android:background="@drawable/top_bg"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="任务"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tasklist_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:text="发布"
+            android:textColor="@drawable/text_blue"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
        <org.com.cctest.view.XListView
          android:id="@+id/task_activity_list"
          android:layout_width="match_parent"

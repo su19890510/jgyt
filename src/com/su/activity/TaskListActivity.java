@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -56,6 +57,7 @@ public class TaskListActivity extends Activity implements IXListViewListener{
 	
 	public TaskListActivity _task;
 	public float viewWidth;
+	public TextView apply;
 	
 	private ArrayList<TaskModel> items = new ArrayList<TaskModel>();
 	
@@ -88,6 +90,8 @@ public class TaskListActivity extends Activity implements IXListViewListener{
 	    showList.setXListViewListener(this);
 	   
 		nAdapter = new NearAdapter(_task);
+		apply = (TextView) findViewById(R.id.tasklist_publish);
+
 		
 	
 	}
@@ -113,6 +117,13 @@ public class TaskListActivity extends Activity implements IXListViewListener{
 				TaskListActivity.this.startActivity(picIntent);
 			}
 		});
+		
+		apply.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                startActivity(new Intent(TaskListActivity.this, PublishTaskActivity.class));
+            }
+        });
 	
 	}
 	
