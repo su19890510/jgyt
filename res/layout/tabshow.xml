@@ -39,6 +39,10 @@
                    android:id="@+id/tab_item_sort"   
                    style="@style/main_tab_bottom"
                    android:background="@drawable/item_sort_bg" />
+                 <RadioButton
+                   android:id="@+id/tab_item_task"   
+                   style="@style/main_tab_bottom"
+                   android:background="@drawable/item_more_bg" />
                 <RadioButton
                    android:id="@+id/tab_item_mine"  
                    style="@style/main_tab_bottom"

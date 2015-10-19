@@ -44,6 +44,8 @@
         <activity android:name="com.su.activity.ResetPasswordActivity"/>
         <activity android:name="com.su.activity.MatchActivity"/>
         <activity android:name="com.su.activity.NewsContentActivity"/>
+        <activity android:name="com.su.activity.ProductionDetailActivity"/>
+        
         
         
         
