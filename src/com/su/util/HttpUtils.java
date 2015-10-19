@@ -1,13 +1,14 @@
 package com.su.util;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.CookieStore;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -15,13 +16,16 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.conn.params.ConnManagerParams;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
@@ -38,11 +42,11 @@ public final class HttpUtils {
     public static String getHttpEntity(String url, List<NameValuePair> params, HttpMethod method) {
         switch (method) {
             case GET:
-                return HttpUtils.HttpGet(url);
+                return HttpUtils.sendGet(url);
             case POST:
-                return HttpUtils.HttpPost(url, params);
+                return HttpUtils.httpPost(url, params);
             default:
-                return HttpUtils.HttpPost(url, params);
+                return HttpUtils.httpPost(url, params);
         }
     }
 
@@ -55,13 +59,14 @@ public final class HttpUtils {
         mHttpClient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
         mHttpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 6000);
         mHttpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 6000);
+        
         return mHttpClient;
     }
-
-    private static String HttpGet(String url) {
+    
+    private static String sendGet(String url) {
         DefaultHttpClient mHttpClient = getHttpClient();
         HttpGet httpGet = new HttpGet(url);
-        Log.v("suzhaohui", url);
+        Log.v("API SendGet", url);
         try {
             HttpResponse httpResponse = mHttpClient.execute(httpGet);
             HttpEntity httpEntity = httpResponse.getEntity();
@@ -69,7 +74,6 @@ public final class HttpUtils {
                 int status = httpResponse.getStatusLine().getStatusCode();
                 if (status == HttpStatus.SC_OK) {
                     String response = EntityUtils.toString(httpEntity, "UTF-8");
-                    Log.v("suzhaohui", response);
                     return response;
                 }
             }
@@ -90,92 +94,97 @@ public final class HttpUtils {
         }
         return null;
     }
-
-    private static CookieStore cookies;
-
-    private static String HttpPost(String url, List<NameValuePair> pairs) {
-        // DefaultHttpClient mHttpClient = getHttpClient();
-        // HttpPost httpPost = new HttpPost(url);
-        // //写cookie
-        // String response = null;
-        // try {
-        // if(pairs!=null){
-        // for (NameValuePair pair : pairs)
-        // {
-        // Log.v("suzhaohui",pair.getValue());
-        // }
-        // httpPost.setEntity(new UrlEncodedFormEntity(pairs, "UTF-8"));
-        // }
-        // HttpResponse httpResponse = mHttpClient.execute(httpPost);
-        // HttpEntity httpEntity = httpResponse.getEntity();
-        // if (httpEntity != null) {
-        // int status = httpResponse.getStatusLine().getStatusCode();
-        // if (status == HttpStatus.SC_OK) {
-        // response = EntityUtils.toString(httpEntity, "UTF-8");
-        //
-        // return response;
-        // }
-        // }
-        // }
-        // catch (SocketTimeoutException e) {
-        // e.printStackTrace();
-        // Log.v("suzhaohui","timeout");
-        // return "{error:timeOut}";
-        // }
-        // catch (HttpHostConnectException e) {
-        // e.printStackTrace();
-        // Log.v("suzhaohui","netError");
-        // return "{error:netError}";
-        // }
-        // catch (ClientProtocolException e){
-        // e.printStackTrace();
-        // }
-        // catch (IOException e){
-        // e.printStackTrace();
-        // }
-        // catch (Exception e) {
-        // e.printStackTrace();
-        // }
+    
+    private static String sendPost(String url, List<NameValuePair> pairs) {
+//        try {
+//            JSONObject jsonObj = new JSONObject();
+//            for (NameValuePair nameValuePair : pairs) {
+//                jsonObj.put(nameValuePair.getName(), nameValuePair.getValue());
+//            }
+//            HttpPost httpPost = new HttpPost(url);
+//            StringEntity entity = new StringEntity(jsonObj.toString(), HTTP.UTF_8);
+//            entity.setContentType("application/json");
+//            httpPost.setEntity(entity);
+//            httpPost.setHeader("Accept", "application/json");
+//            httpPost.setHeader("Content-type", "application/json");
+//            httpPost.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+//            httpPost.setHeader("Cache-Control", "max-age=0");
+//            httpPost.setHeader("Connection", "keep-alive");
+//            httpPost.setHeader("domain", "120.24.228.100");
+//            httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
+//            httpPost.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:28.0) Gecko/20100101 Firefox/28.0");
+//            DefaultHttpClient client = getHttpClient();
+//            HttpResponse response = client.execute(httpPost);
+//            HttpEntity httpEntity = response.getEntity();
+//            if (httpEntity != null) {
+//                int status = response.getStatusLine().getStatusCode();
+//                if (status == HttpStatus.SC_OK) {
+//                    return EntityUtils.toString(httpEntity, "UTF-8");
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        
         try {
+            UrlEncodedFormEntity requestHttpEntity = new UrlEncodedFormEntity(pairs, "UTF-8");
+            requestHttpEntity.setContentEncoding(HTTP.UTF_8);
+            requestHttpEntity.setContentType("application/json");
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.setEntity(requestHttpEntity);
+            httpPost.setHeader("Content-Type", "application/json");
+            httpPost.setHeader("Accept", "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+            httpPost.setHeader("Cache-Control", "max-age=0");
+            httpPost.setHeader("Connection", "keep-alive");
+            httpPost.setHeader("domain", "120.24.228.100");
+            httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
+            httpPost.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:28.0) Gecko/20100101 Firefox/28.0");
+            DefaultHttpClient mHttpClient = getHttpClient();
+            HttpResponse response = mHttpClient.execute(httpPost);
+            HttpEntity httpEntity = response.getEntity();
+            if (httpEntity != null) {
+                int status = response.getStatusLine().getStatusCode();
+                if (status == HttpStatus.SC_OK) {
+                    return EntityUtils.toString(httpEntity, "UTF-8");
+                }
+            }
+        } catch (Exception e) {
+            Log.v("API Error", "Send API Request[" + url + "] Error.", e);
+        }
+        return null;
+    }
 
+    static String httpPost(String url, List<NameValuePair> pairs) {
+        try {
             URL _url = new URL(url);
-            Log.v("suzhaohui", url);
             String data = revertUrl(pairs);
             HttpURLConnection connection = (HttpURLConnection) _url.openConnection();
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            // 连接，从postUrl.openConnection()至此的配置必须要在connect之前完成，
-            // 要注意的是connection.getOutputStream会隐含的进行connect。
-            connection.connect();
-            OutputStreamWriter request = new OutputStreamWriter(connection.getOutputStream());
-            Log.v("suzhaohui", data);
-            request.write(data);
-            request.flush();
-            request.close();
+            connection.setRequestProperty("Accept", "*/*");
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36");
+            
+//            connection.connect();
 
-            String line = "";
-            InputStreamReader isr = new InputStreamReader(connection.getInputStream());
-            BufferedReader reader = new BufferedReader(isr);
-
-            StringBuffer sb = new StringBuffer();
-
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            
+            
+            DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+            wr.writeBytes(data);
+            wr.flush();
+            wr.close();
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
             }
-
-            String response = sb.toString();
-            // response.getEntity().getContent();
-
-            Log.i("Test", "updated response: " + response);
-
-
-            return response;
+            in.close();
+            return response.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -205,11 +214,9 @@ public final class HttpUtils {
     }
 
     public static String getConnectionInfo(Context context) {
-        // 获取网络连接管理�?
         ConnectivityManager connectionManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        // 获取网络的状态信息，有下面三种方�?
         NetworkInfo networkInfo = connectionManager.getActiveNetworkInfo();
-        return null;
+        return networkInfo.getReason();
         // NetworkInfo 有一下方�?
         // getDetailedState()：获取详细状态�??
         // getExtraInfo()：获取附加信息�??
@@ -242,31 +249,24 @@ public final class HttpUtils {
         // 用联通uninet方式
         // getExtraInfo 的�?�是uninet
     }
-
-    // class UTF8PostMethod extends PostMethod{
-    // public UTF8PostMethod(String url){
-    // super(url);
-    // }
-    // @Override
-    // public String getRequestCharSet() {
-    // //return super.getRequestCharSet();
-    // return "gb2312";
-    // }
-    // }
+    
     private static String revertUrl(List<NameValuePair> params) {
         String url = "";
         StringBuilder sb = new StringBuilder("");
-
-
-
         boolean needRemove = false;
         for (NameValuePair pair : params) {
-            sb.append(pair.getName()).append("=").append(pair.getValue()).append("&");
+            sb.append(pair.getName()).append("=").append(encode(pair.getValue())).append("&");
             needRemove = true;
         }
-
         url = needRemove ? sb.substring(0, sb.length() - 1) : sb.toString();
         return url;
     }
+    
+    private static String encode(String value) {
+        try {
+            return URLEncoder.encode(value, "UTF-8");
+        } catch (Exception e) {
+        }
+        return value;
+    }
 }
-
