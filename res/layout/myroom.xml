@@ -94,7 +94,75 @@
         		android:src="@drawable/mm_submenu" />
           </RelativeLayout>
           
+          <!-- begin -->
+       
+        <RelativeLayout
+	        android:id="@+id/myroom_update_mypublish"
+	        android:layout_width="fill_parent"
+	        android:layout_height="42dip"      
+	        android:clickable="true"
+	        android:layout_marginTop="1dip"      
+	        android:background="@drawable/myroom_item_pressed"      
+        >
+        
+       <TextView
+	        android:id="@+id/card_text11"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+	        android:layout_marginLeft="10dip"
+	        android:layout_centerVertical="true"  
+	        android:text="我发布的任务"
+	        android:textSize="16sp"
+	        android:textColor="#202020"      
+        />
+          <ImageView
+                android:id="@+id/row_img_0511"
+            	android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"  
+        		android:layout_marginRight="10dip"      	     	
+        		android:scaleType="matrix"
+        		android:layout_centerVertical="true"
+        		android:layout_alignParentRight="true"
+        		android:contentDescription="@string/app_name"      		
+        		android:src="@drawable/mm_submenu" />
+          </RelativeLayout>
+          <!-- end -->
+        
+        <!-- begin -->
+           <RelativeLayout
+	        android:id="@+id/myroom_update_myapply"
+	        android:layout_width="fill_parent"
+	        android:layout_height="42dip"      
+	        android:clickable="true"
+	        android:layout_marginTop="1dip"      
+	        android:background="@drawable/myroom_item_pressed"      
+        >
+        
+       <TextView
+	        android:id="@+id/card_text111"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+	        android:layout_marginLeft="10dip"
+	        android:layout_centerVertical="true"  
+	        android:text="我申请的任务"
+	        android:textSize="16sp"
+	        android:textColor="#202020"      
+        />
+          <ImageView
+                android:id="@+id/row_img_05111"
+            	android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"  
+        		android:layout_marginRight="10dip"      	     	
+        		android:scaleType="matrix"
+        		android:layout_centerVertical="true"
+        		android:layout_alignParentRight="true"
+        		android:contentDescription="@string/app_name"      		
+        		android:src="@drawable/mm_submenu" />
+          </RelativeLayout>
           
+           <!-- end -->
+           
+           
          <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="match_parent"

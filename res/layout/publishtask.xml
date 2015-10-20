@@ -79,7 +79,7 @@
             			android:background="@drawable/myroom_item_pressed" > 
 
             <TextView
-                android:id="@+id/taskdetail_title"
+                android:id="@+id/mypublishtaskdetail_title"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
@@ -94,7 +94,7 @@
                 android:layout_weight="4"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="任务标题"
+                android:text=""
                 android:textColor="#000000" />
 
             <LinearLayout
@@ -147,7 +147,7 @@
 				                android:layout_weight="4"
 				                android:gravity="center"
 				                android:singleLine="true"
-				                android:text="任务类型"
+				                android:text=""
 				                android:textColor="#000000" />
 				
 				            <LinearLayout
@@ -198,7 +198,7 @@
 				                android:layout_weight="4"
 				                android:gravity="center"
 				                android:singleLine="true"
-				                android:text="18W"
+				                android:text=""
 				                android:textColor="#000000" />
 				
 				            <LinearLayout
@@ -253,7 +253,7 @@
 				                android:layout_weight="4"
 				                android:gravity="center"
 				                android:singleLine="true"
-				                android:text="2015-12-13"
+				                android:text=""
 				                android:textColor="#000000" />
 				
 				            <LinearLayout
@@ -306,7 +306,7 @@
 				                android:layout_weight="4"
 				                android:gravity="center"
 				                android:singleLine="true"
-				                android:text="2015-12-30"
+				                android:text=""
 				                android:textColor="#000000" />
 				
 				            <LinearLayout
@@ -358,7 +358,7 @@
 				                android:layout_weight="4"
 				                android:gravity="center"
 				                android:singleLine="true"
-				                android:text="2015-12-30"
+				                android:text=""
 				                android:textColor="#000000" />
 				
 				            <LinearLayout

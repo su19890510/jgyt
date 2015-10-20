@@ -83,9 +83,17 @@
         <item name="@android:windowEnterAnimation">@anim/in</item>
         <item name="@android:windowExitAnimation">@anim/out</item>
     </style>
-<style name="AppTheme.Dialog" parent="android:Theme.Holo.Light.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowCloseOnTouchOutside">true</item>
-        <item name="android:windowBackground">@drawable/usermainpage_bg_center</item>
-</style>
+
+<style  name="DatePickerDialog"  parent="@android:Theme.Holo.Light.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+       
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:textSize">14sp</item>
+       
+    </style>
 </resources>

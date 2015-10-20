@@ -1,6 +1,19 @@
 package com.su.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
 import com.jgzs.lsw.R;
+import com.su.database.DataAccess;
+import com.su.util.AppData;
+import com.su.util.HttpMethod;
+import com.su.util.NetManager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -35,12 +48,14 @@ public class PublishTaskActivity  extends Activity implements OnClickListener {
 	private LinearLayout endtimelayout;
 	private LinearLayout declayout;
 	int select ;
+	private PublishTaskActivity _publish;
 	 String item[] = {"建筑设计","室内设计","景观设计","家具设计","平面设计","工业设计"};
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.publishtask);
+        _publish = this;
         findViewByXmlId();
     }
 	private void findViewByXmlId()
@@ -124,10 +139,14 @@ public class PublishTaskActivity  extends Activity implements OnClickListener {
         	 int y  = 2015;
         	 int m = 10;
         	 int d = 10;
-        	String[] timelist =  mnick.split("-");
-        	y = Integer.parseInt(timelist[0]);
-        	m = Integer.parseInt(timelist[1]) - 1;
-        	d = Integer.parseInt(timelist[2]);
+        	 String[] timelist = null;
+            	if(mnick.length() >0)
+            	{
+            		timelist=  mnick.split("-");
+                	y = Integer.parseInt(timelist[0]);
+                	m = Integer.parseInt(timelist[1]) - 1;
+                	d = Integer.parseInt(timelist[2]);
+            	}
             DatePickerDialog datePicker=new DatePickerDialog(PublishTaskActivity.this, new OnDateSetListener() {
 				
 				@Override
@@ -145,17 +164,32 @@ public class PublishTaskActivity  extends Activity implements OnClickListener {
        	 int y1  = 2015;
        	 int m1 = 10;
        	 int d1 = 10;
-       	String[] timelist1 =  mnick.split("-");
-       	y1 = Integer.parseInt(timelist1[0]);
-       	m1 = Integer.parseInt(timelist1[1]) - 1;
-       	d1 = Integer.parseInt(timelist1[2]);
+       	String[] timelist1 = null;
+       	if(mnick.length() >0)
+       	{
+       		timelist1=  mnick.split("-");
+           	y1 = Integer.parseInt(timelist1[0]);
+           	m1 = Integer.parseInt(timelist1[1]) - 1;
+           	d1 = Integer.parseInt(timelist1[2]);
+       	}
+       	
            DatePickerDialog datePicker1=new DatePickerDialog(PublishTaskActivity.this, new OnDateSetListener() {
 				
 				@Override
 				public void onDateSet(DatePicker view, int year, int monthOfYear,
 						int dayOfMonth) {
 					// TODO Auto-generated method stub
-					String timestr = String.valueOf(year) + "-" + String.valueOf(monthOfYear + 1)+"-"+String.valueOf(dayOfMonth);
+					String monthstr = String.valueOf(monthOfYear);
+					if(monthOfYear < 9)
+					{
+						monthstr = "0"+monthstr;
+					}
+					String daystr = String.valueOf(dayOfMonth);
+					if(dayOfMonth < 9)
+					{
+						daystr = "0"+daystr;
+					}
+					String timestr = String.valueOf(year) + "-" + monthstr+"-"+daystr;
 					endtime.setText(timestr);
 				}
 			}, y1, m1, d1);
@@ -192,7 +226,7 @@ public class PublishTaskActivity  extends Activity implements OnClickListener {
 		
         	break;
         case R.id.publishtask_activity_apply:
-        	
+        	publishTask();
         	break;
         	default:
         		break;
@@ -210,8 +244,15 @@ public class PublishTaskActivity  extends Activity implements OnClickListener {
 	            title.setText(intro);
 	        }
 		 if (requestCode == 10) {
-	            String intro;
-	            intro = data.getStringExtra("result");
+			  String intro;
+	          intro = data.getStringExtra("result");
+			  Pattern pattern = Pattern.compile("[0-9]*");
+			   Matcher isNum = pattern.matcher(intro);
+			   if( !isNum.matches() ){
+				   Toast.makeText(_publish, "任务奖励为数字类型", Toast.LENGTH_SHORT).show();
+				   return;
+			   }
+	          
 	            reward.setText(intro);
 	        }
 		 if (requestCode == 11) {
@@ -220,5 +261,52 @@ public class PublishTaskActivity  extends Activity implements OnClickListener {
 	            dec.setText(intro);
 	        }
 	 }
-
+   private void publishTask()
+   {
+	   String titlestr = String.valueOf( title.getText());
+	   String typestr = String.valueOf(type.getText());
+	   String rewardstr = String.valueOf(reward.getText());
+	   String startstr = String.valueOf(starttime.getText());
+	   String endstr =String.valueOf(endtime.getText());
+	   String decstr = String.valueOf(dec.getText());
+	   if(titlestr.length()<=0 || typestr.length()<= 0 || rewardstr.length() <= 0 || startstr.length()<= 0 || endstr.length() <= 0 || decstr.length() <= 0)
+	   {
+		   Toast.makeText(_publish, "信息没有填写完整", Toast.LENGTH_SHORT).show();
+		   return;
+	   }
+	   
+	   List<NameValuePair> tt = new ArrayList<NameValuePair>();
+       NetManager bb = NetManager.getInstance(); // .toString();
+       String types = "1";
+       for(int i = 0; i < item.length;i++)
+       {
+    	   if(typestr.equals(item[i]))
+    	   {
+    		   types = String.valueOf(i+1);
+    		   break;
+    	   }
+       }
+       tt.add(new BasicNameValuePair("type", types));      
+       tt.add(new BasicNameValuePair("title", titlestr));
+       tt.add(new BasicNameValuePair("description", decstr));
+       tt.add(new BasicNameValuePair("start_date", startstr + " 00:00:00"));
+       tt.add(new BasicNameValuePair("end_date", endstr+" 00:00:00"));
+       tt.add(new BasicNameValuePair("reward", rewardstr));
+       tt.add(new BasicNameValuePair("app_id", DataAccess.getAppId()));
+       tt.add(new BasicNameValuePair("open_id", DataAccess.getOpenId()));
+       tt.add(new BasicNameValuePair("access_token", DataAccess.getAccessToken()));
+       
+       try {
+           JSONObject response = bb.sendHttpRequest("task/publish", tt, HttpMethod.GET);
+           int code = response.getInt("code");
+           if (code != 200) {
+               Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();
+               return;
+           }
+           Toast.makeText(this, "发布成功", Toast.LENGTH_SHORT).show();
+       } catch (Exception e) {
+           Log.v("API Error", "Update Profile Error.", e);
+       }
+   }
+   
 }

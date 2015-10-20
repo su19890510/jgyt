@@ -34,18 +34,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="center"
         		android:textSize="20sp"      		     		        		
-				android:textColor="#ffffff" /> 
-				
-          	<TextView
-          	    android:id="@+id/taskdetail_apply"
-          	    android:layout_width="wrap_content"
-          	    android:layout_height="wrap_content"
-          	    android:layout_alignParentRight="true"
-          	    android:layout_centerVertical="true"
-          	    android:layout_marginRight="10dip"
-          	    android:text="申请"
-          	    android:textColor="@drawable/text_blue"
-          	    android:textSize="20sp" />
+				android:textColor="#ffffff" />
       		
       	</RelativeLayout>
       	

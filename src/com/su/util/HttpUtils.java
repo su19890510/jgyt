@@ -66,14 +66,18 @@ public final class HttpUtils {
     private static String sendGet(String url) {
         DefaultHttpClient mHttpClient = getHttpClient();
         HttpGet httpGet = new HttpGet(url);
-        Log.v("API SendGet", url);
+        Log.v("API SendGet1111", url);
         try {
             HttpResponse httpResponse = mHttpClient.execute(httpGet);
             HttpEntity httpEntity = httpResponse.getEntity();
+            Log.v("suzhaohui","!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             if (httpEntity != null) {
                 int status = httpResponse.getStatusLine().getStatusCode();
+                Log.v("suzhaohui","1111111111111111111111111111111111111111111");
                 if (status == HttpStatus.SC_OK) {
+                	Log.v("suzhaohui","~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     String response = EntityUtils.toString(httpEntity, "UTF-8");
+                    Log.v("Api ss",response);
                     return response;
                 }
             }

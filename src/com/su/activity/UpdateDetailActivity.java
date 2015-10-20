@@ -85,7 +85,7 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
     }
 
     private void initView() {
-        detail_back = (TextView) findViewById(R.id.taskdetail_back);
+        detail_back = (TextView) findViewById(R.id.mypublishtaskdetail_back);
         detail_back.setOnClickListener(this);
 
         detail_user_img = (ImageView) findViewById(R.id.detail_img);
@@ -155,7 +155,7 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.taskdetail_back:
+            case R.id.mypublishtaskdetail_back:
                 this.finish();
                 break;
             case R.id.nickname_rl:
@@ -231,7 +231,7 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
                 tt.add(new BasicNameValuePair("open_id", DataAccess.getOpenId()));
                 tt.add(new BasicNameValuePair("access_token", DataAccess.getAccessToken()));
                 try {
-                    JSONObject response = bb.sendHttpRequest("account/profile", tt, HttpMethod.POST);
+                    JSONObject response = bb.sendHttpRequest("account/profile", tt, HttpMethod.GET);
                     int code = response.getInt("code");
                     if (code != 200) {
                         Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();

@@ -112,8 +112,12 @@ public class TaskListActivity extends Activity implements IXListViewListener{
 				
 				TaskModel model = items.get(arg2 -1);
 				picIntent.putExtra("id", model.getId());
-				picIntent.putExtra("tittle", model.getType());
-				
+				picIntent.putExtra("tittle", model.getTitle());
+				picIntent.putExtra("reward", model.getReward());
+				picIntent.putExtra("starttime", model.getStart_date());
+				picIntent.putExtra("endtime", model.getEnd_date());
+				picIntent.putExtra("dec", model.getDescripteion());
+				picIntent.putExtra("type", model.getType());
 				TaskListActivity.this.startActivity(picIntent);
 			}
 		});
@@ -261,10 +265,10 @@ public class TaskListActivity extends Activity implements IXListViewListener{
 		List<NameValuePair>  tt = new ArrayList<NameValuePair>();
 		NetManager bb=		NetManager.getInstance() ; //.toString();
 		tt.add(new BasicNameValuePair("page", String.valueOf(page))); 
-		 tt.add(new BasicNameValuePair("app_id", DataAccess.getAppId()));
-         tt.add(new BasicNameValuePair("open_id", DataAccess.getOpenId()));
-         tt.add(new BasicNameValuePair("access_token", DataAccess.getAccessToken()));
-		JSONObject get = bb.sendHttpRequest("task/apply", tt, HttpMethod.GET);
+//		 tt.add(new BasicNameValuePair("app_id", DataAccess.getAppId()));
+//         tt.add(new BasicNameValuePair("open_id", DataAccess.getOpenId()));
+//         tt.add(new BasicNameValuePair("access_token", DataAccess.getAccessToken()));
+		JSONObject get = bb.sendHttpRequest("task/search", tt, HttpMethod.GET);
 		try {
 			if(get != null)
 			{  
