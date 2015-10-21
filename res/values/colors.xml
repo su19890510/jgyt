@@ -3,5 +3,7 @@
    <color name="back_color">#e5e5e8</color>
     <color name="lightwhite">#fff</color>
    <color name="tab_text">#41A3F5</color>
-    
+    <color name= "reward_red">#af1919</color>
+    <color name= "type_red">#af1919</color>
+     <color name= "type_back">#6a6969</color>
 </resources>

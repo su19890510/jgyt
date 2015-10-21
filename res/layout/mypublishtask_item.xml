@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/myroom_item_pressed" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp" >
+
+        <TextView
+            android:id="@+id/mypublishtask_list_item_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center|left"
+            android:singleLine="true"
+            android:text="我是说电话费地方地方司法ids覅是否"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/mypublishtask_list_item_money"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="0dp"
+            android:layout_weight="2"
+            android:gravity="center|right"
+            android:text="16-50万"
+            android:textColor="#f33a3a" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:src="@drawable/arrow_b" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/mypublishtask_list_item_company"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:text="中国移动联通公司"
+        android:textColor="#7b7a7a" />
+
+    <TextView
+        android:id="@+id/mypublishtask_list_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="2015-12-12"
+        android:gravity="center"
+        android:textColor="#7b7a7a" />
+
+</LinearLayout>

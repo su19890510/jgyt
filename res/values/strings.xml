@@ -65,6 +65,8 @@
     <string name="match_pro">专家</string>
     <string name="match_news">新闻</string>
     <string name="match_product">作品</string>
+    <string name="production_vote">投票</string>
+    <string name="task_title">任务</string>
     
       
 </resources>

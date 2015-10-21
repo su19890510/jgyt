@@ -28,6 +28,7 @@ import com.su.activity.MatchActivity;
 import com.su.activity.MyRoomActivity;
 import com.su.activity.PlantListActivity;
 import com.su.activity.ProjectActivity;
+import com.su.activity.TaskListActivity;
 
 import com.su.util.NianUtil;
 import com.su.util.log;
@@ -66,6 +67,9 @@ public class TabShow extends TabActivity {
 			    
 		  mHost.addTab(mHost.newTabSpec("MORE").setIndicator("MORE")
 		    		.setContent(new Intent(this , MyRoomActivity.class)));
+		  
+		  mHost.addTab(mHost.newTabSpec("TASK").setIndicator("TASK")
+		    		.setContent(new Intent(this , TaskListActivity.class)));
 		   
 		  tabItems = (RadioGroup)findViewById(R.id.tab_items);
 		  mineBut = (RadioButton)findViewById(R.id.tab_item_mine);
@@ -95,6 +99,9 @@ public class TabShow extends TabActivity {
 						 break;	
 					 case R.id.tab_item_mine :
 						 mHost.setCurrentTabByTag("MORE");
+						 break;	
+					 case R.id.tab_item_task :
+						 mHost.setCurrentTabByTag("TASK");
 						 break;	
 			
 					

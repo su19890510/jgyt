@@ -34,6 +34,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.jgzs.lsw.R;
 import com.su.ImageLoad.ImageLoader;
 import com.su.activity.NewsContentActivity;
+import com.su.activity.ProductionDetailActivity;
 import com.su.framgment.NewsFragement.HoldView;
 import com.su.framgment.NewsFragement.NearAdapter;
 import com.su.model.NewsModel;
@@ -49,6 +50,7 @@ public class ProductionFragement extends Fragment implements IXListViewListener{
 	public XListView showList;
 	public Activity profession;	
 	private int page = 1;
+	private int getmessageState = 1; //1 : 表示刷新  2：表示加载更多
 	private ArrayList<ProductionModel> items = new ArrayList<ProductionModel>();
 	View startView;
 	public ProductionFragement(Activity _matchActivity)
@@ -80,7 +82,7 @@ public class ProductionFragement extends Fragment implements IXListViewListener{
 	public void initSetting() {	
 		showList.setAdapter(nAdapter);
 		showList.setDivider(null);
-		showList.setDividerHeight(15);	
+		showList.setDividerHeight(20);	
 		
 		showList.setOnItemClickListener(new OnItemClickListener() {
 			
@@ -88,11 +90,12 @@ public class ProductionFragement extends Fragment implements IXListViewListener{
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			Intent picIntent = new Intent(profession,
-					NewsContentActivity.class);
+					ProductionDetailActivity.class);
 			
 			ProductionModel model = items.get(arg2 -1);
 			picIntent.putExtra("content", model.getDescription());
 			picIntent.putExtra("title", model.getTitle());	
+			picIntent.putExtra("id", model.getProductionid());
 			picIntent.putStringArrayListExtra("imagelist", (ArrayList<String>) model.getImageList());
 			profession.startActivity(picIntent);
 			}
@@ -185,9 +188,10 @@ public class ProductionFragement extends Fragment implements IXListViewListener{
 	}
 	@Override
 	public void onRefresh() {
+		
 		items.clear();
-		getProList();
 		page = 1;
+		getProList();					
 		nAdapter = new NearAdapter(profession);
 		showList.setAdapter(nAdapter);
 		onLoad();
@@ -238,7 +242,12 @@ public class ProductionFragement extends Fragment implements IXListViewListener{
 				}
 				int code = get.getInt("code");
 				if(code != 200 )
-				{
+				{   
+					if(code == -11006)
+					{
+						dandler.sendEmptyMessage(2);
+						return -11006;
+					}
 					dandler.sendEmptyMessage(-9000);
 					return -9000;
 				}
@@ -266,7 +275,10 @@ public class ProductionFragement extends Fragment implements IXListViewListener{
 					mode.setImageList(imgList);
 					items.add(mode);
 			}
-			
+			if(plantList.length() <= 0)
+			{
+				dandler.sendEmptyMessage(2);
+			}
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -288,6 +300,10 @@ public class ProductionFragement extends Fragment implements IXListViewListener{
 		                break;
 		            case 1:
 						Toast.makeText(profession, "网络错误",
+								Toast.LENGTH_SHORT).show();
+		                break;
+		            case 2:
+		            	Toast.makeText(profession, "没有更多数据",
 								Toast.LENGTH_SHORT).show();
 		                break;
 		        

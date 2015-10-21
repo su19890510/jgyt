@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dedede"
+    android:orientation="vertical" >
+    
+
+    <RelativeLayout 
+  			android:layout_width="fill_parent"
+  			android:layout_height="50dip" 
+  			android:id="@+id/title" 
+  			android:background="@drawable/top_bg"
+  			android:gravity="center_vertical" 
+  			
+  			 >  
+
+      		<TextView
+      		    android:id="@+id/mypublishtaskdetail_back"
+      		    android:layout_width="wrap_content"
+      		    android:layout_height="wrap_content"
+      		    android:layout_centerVertical="true"
+      		    android:layout_marginLeft="15dp"
+      		    android:drawableLeft="@drawable/back_seletor"
+      		    android:text="返回"
+      		    android:textColor="@drawable/text_blue"
+      		    android:textSize="20sp" />
+				
+      		<TextView
+        		android:layout_width="wrap_content" 
+        		android:layout_height="wrap_content" 
+        		android:text="任务详情"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+        		android:textSize="20sp"      		     		        		
+				android:textColor="#ffffff" />
+      		
+      	</RelativeLayout>
+      	
+                    <View 
+      		   
+                     android:layout_width="match_parent" 
+                     android:layout_height="1dip"  
+                      android:background="@drawable/line"
+
+                    />
+    
+    <ScrollView 
+       	 android:layout_width="fill_parent"
+         android:layout_height="match_parent" 
+         android:scrollbars="none"
+          android:background="@drawable/usermainpage_bg_center"
+        >
+    
+    <LinearLayout 
+      			  	android:layout_width="fill_parent"
+            	    android:layout_height="wrap_content"  
+            	    
+      			    android:orientation="vertical"
+      			    >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/mypublishtaskdetail_title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="建筑设计招标"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/mypublishtaskdetail_money"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="10~90W"
+                android:textColor="#af1919"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:src="@drawable/line"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="开始时间"
+                        android:textColor="#6a6969" />
+
+                    <TextView
+                        android:id="@+id/mypublishtaskdetail_begintime"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="2015-12-01"
+                        android:textColor="#6a6969" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/beijingditiao" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="结束时间" 
+                        android:textColor="#6a6969"/>
+
+                    <TextView
+                        android:id="@+id/mypublishtaskdetail_endtime"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="2015-12-30"
+                        android:textColor="#6a6969" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+         <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:src="@drawable/line"
+                android:layout_weight="1" />
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_marginTop="10dp"
+             android:layout_height="40dp" >
+
+             <TextView
+                 android:id="@+id/mypublishtaskdetail_waitapply"
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="1"
+                 android:gravity="center"
+                 android:text="待招标"
+                 android:textColor="#6a6969" />
+
+             <TextView
+                 android:id="@+id/mypublishtaskdetail_applying"
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="1"
+                 android:gravity="center"
+                 android:text="招标中"
+                 android:textColor="#6a6969" />
+
+             <TextView
+                 android:id="@+id/mypublishtaskdetail_applyend"
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="1"
+                 android:gravity="center"
+                 android:text="招标结束"
+                 android:textColor="#6a6969" />
+
+         </LinearLayout>
+
+         <TextView
+             android:id="@+id/textView10"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="任务描述"
+             android:layout_marginTop="10dp"
+             android:textSize="15sp"
+             android:textColor="#000000" />
+
+         <TextView
+             android:id="@+id/mypublishtaskdetail_dec"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="任务详情"
+             android:textColor="#363636" />
+
+</LinearLayout>
+    </ScrollView>
+    
+      		
+ 
+</LinearLayout>
