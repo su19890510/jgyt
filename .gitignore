@@ -3,6 +3,8 @@ Thumbs.db
 ehthumbs.db
 bin
 bin/
+gen
+gen/
 # Folder config file
 Desktop.ini
 
