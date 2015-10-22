@@ -153,7 +153,18 @@ public class PublishTaskActivity  extends Activity implements OnClickListener {
 				public void onDateSet(DatePicker view, int year, int monthOfYear,
 						int dayOfMonth) {
 					// TODO Auto-generated method stub
-					String timestr = String.valueOf(year) + "-" + String.valueOf(monthOfYear + 1)+"-"+String.valueOf(dayOfMonth);
+					monthOfYear = monthOfYear + 1;
+					String monthstr = String.valueOf(monthOfYear);
+					if(monthOfYear < 9)
+					{
+						monthstr = "0"+monthstr;
+					}
+					String daystr = String.valueOf(dayOfMonth);
+					if(dayOfMonth < 9)
+					{
+						daystr = "0"+daystr;
+					}
+					String timestr = String.valueOf(year) + "-" + monthstr+"-"+daystr;
 					starttime.setText(timestr);
 				}
 			}, y, m, d);
@@ -179,6 +190,7 @@ public class PublishTaskActivity  extends Activity implements OnClickListener {
 				public void onDateSet(DatePicker view, int year, int monthOfYear,
 						int dayOfMonth) {
 					// TODO Auto-generated method stub
+					monthOfYear = monthOfYear + 1;
 					String monthstr = String.valueOf(monthOfYear);
 					if(monthOfYear < 9)
 					{

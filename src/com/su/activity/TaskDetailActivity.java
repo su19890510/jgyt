@@ -42,37 +42,45 @@ public class TaskDetailActivity  extends Activity implements OnClickListener {
         taskdetail = this;
         findViewByXmlId();
         setTextViewValue();
+        
     }
 	private void findViewByXmlId()
 	{
-		back = (TextView) findViewById(R.id.mypublishtaskdetail_back);
+		back = (TextView) findViewById(R.id.taskdetail_back);
 		apply = (TextView) findViewById(R.id.taskdetail_apply);
-		title = (TextView) findViewById(R.id.mypublishtaskdetail_title);
-		reward = (TextView) findViewById(R.id.mypublishtaskdetail_money);
-		starttime = (TextView) findViewById(R.id.mypublishtaskdetail_begintime);
-		endtime = (TextView) findViewById(R.id.mypublishtaskdetail_endtime);
-		waitapply = (TextView) findViewById(R.id.mypublishtaskdetail_waitapply);
-		applying = (TextView) findViewById(R.id.mypublishtaskdetail_applying);
-		endapply = (TextView) findViewById(R.id.mypublishtaskdetail_applyend);
-		dec = (TextView) findViewById(R.id.mypublishtaskdetail_dec);
+		title = (TextView) findViewById(R.id.taskdetail_title);
+		reward = (TextView) findViewById(R.id.taskdetail_money);
+		starttime = (TextView) findViewById(R.id.taskdetail_begintime);
+		endtime = (TextView) findViewById(R.id.taskdetail_endtime);
+		waitapply = (TextView) findViewById(R.id.taskdetail_waitapply);
+		applying = (TextView) findViewById(R.id.taskdetail_applying);
+		endapply = (TextView) findViewById(R.id.taskdetail_applyend);
+		dec = (TextView) findViewById(R.id.taskdetail_dec);
 		
 		apply.setOnClickListener(this);
+		back.setOnClickListener(this);
 	}
 	private void setTextViewValue()
 	{
 		Intent intent1 = this.getIntent(); 
-        int id = intent1.getIntExtra("id",0);
+         id = intent1.getIntExtra("id",1);
 		String titlestr = intent1.getStringExtra("title");
 		String rewardstr = intent1.getStringExtra("reward");
 		String starttimestr = intent1.getStringExtra("starttime");
 		String endtimestr = intent1.getStringExtra("endtime");
 		String decstr = intent1.getStringExtra("dec");
+		int entertype = intent1.getIntExtra("entertype",1);
+		if(entertype == 2)
+		{
+			apply.setVisibility(View.GONE);
+		}
 		int type = intent1.getIntExtra("teyp", 1);
 		
 		title.setText(titlestr);
-		reward.setText(rewardstr);
+		reward.setText("价格: "+rewardstr);
 		starttime.setText(starttimestr);
 		endtime.setText(endtimestr);
+		dec.setText(decstr);
 		
 		if(type == 1)
 		{
@@ -94,6 +102,9 @@ public class TaskDetailActivity  extends Activity implements OnClickListener {
 		{
 		case R.id.taskdetail_apply:
 			applyTask();
+		break;
+		case R.id.taskdetail_back:
+		finish();
 		break;
 		}
 		

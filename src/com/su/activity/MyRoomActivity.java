@@ -24,6 +24,8 @@ public class MyRoomActivity extends Activity implements OnClickListener {
     private Button button;
     private RelativeLayout detail;
     private RelativeLayout updatePassword;
+    private RelativeLayout mypublish;
+    private RelativeLayout myapply;
     private com.su.ImageLoad.ImageLoader mImageLoader;
     private ImageView head;
 
@@ -45,6 +47,9 @@ public class MyRoomActivity extends Activity implements OnClickListener {
         detail = (RelativeLayout) findViewById(R.id.myroom_detail);
         updatePassword = (RelativeLayout) findViewById(R.id.myroom_update_password);
         head = (ImageView) findViewById(R.id.myroom_head);
+        myapply = (RelativeLayout) findViewById(R.id.myroom_update_myapply);
+        mypublish = (RelativeLayout) findViewById(R.id.myroom_update_mypublish);
+
     }
 
     /**
@@ -53,6 +58,8 @@ public class MyRoomActivity extends Activity implements OnClickListener {
     private void setListener() {
         detail.setOnClickListener(this);
         updatePassword.setOnClickListener(this);
+        myapply.setOnClickListener(this);
+        mypublish.setOnClickListener(this);
         // 登录按钮监听
         button.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -113,7 +120,32 @@ public class MyRoomActivity extends Activity implements OnClickListener {
                 Log.v("suzhaohui", AppData.userInfo.toString());
                 startActivity(new Intent(MyRoomActivity.this, ResetPasswordActivity.class));
                 break;
+            case R.id.myroom_update_myapply:
+            	 if (AppData.userInfo == null) {
+                     new AlertDialog.Builder(this).setTitle("提示").setMessage("您尚未登录，是否登录？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                         public void onClick(DialogInterface dialog, int which) {
+                             startActivity(new Intent(MyRoomActivity.this, LoginActivity.class));
+                         }
+                     }).setNegativeButton("取消", null).show();
+                     return;
+                 }
+            	Intent intent = new Intent(MyRoomActivity.this, TaskListActivity.class);
+            	intent.putExtra("entertype", 2);
+                startActivity(intent);
 
+            	break;
+            case R.id.myroom_update_mypublish:
+            	 if (AppData.userInfo == null) {
+                     new AlertDialog.Builder(this).setTitle("提示").setMessage("您尚未登录，是否登录？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                         public void onClick(DialogInterface dialog, int which) {
+                             startActivity(new Intent(MyRoomActivity.this, LoginActivity.class));
+                         }
+                     }).setNegativeButton("取消", null).show();
+                     return;
+                 }
+                startActivity(new Intent(MyRoomActivity.this, MyPublishTaskActivity.class));
+   	
+            	break;
             default:
                 break;
         }

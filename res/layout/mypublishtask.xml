@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/login_bg"
+    android:background="@color/back_color"
     >
    <!-- android:background="@color/back_color"  -->
 
@@ -13,7 +13,17 @@
         android:layout_height="50dip"
         android:background="@drawable/top_bg"
         android:gravity="center_vertical" >
-
+	<TextView
+      		    android:id="@+id/mypublish_activity_back"
+      		    android:layout_width="wrap_content"
+      		    android:layout_height="wrap_content"
+      		    android:layout_centerVertical="true"
+      		    android:layout_marginLeft="15dp"
+      		    android:drawableLeft="@drawable/back_seletor"
+      		    android:text="返回"
+      		    android:textColor="@drawable/text_blue"
+      		    android:textSize="20sp" />
+				
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,16 +33,16 @@
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
-        
+       
     </RelativeLayout>
 
        <org.com.cctest.view.XListView
          android:id="@+id/mypublishtask_activity_list"
          android:layout_width="match_parent"
-         android:layout_height="wrap_content" 
-         android:layout_marginLeft="10dip"
-         android:layout_marginRight="10dip"
-         android:layout_marginTop="10dip"
+         android:layout_height="match_parent" 
+         android:layout_marginLeft="0dip"
+         android:layout_marginRight="0dip"
+         android:layout_marginTop="1dip"
          android:layout_marginBottom="10dip"
          
          android:scrollbars="none"

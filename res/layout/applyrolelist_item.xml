@@ -12,57 +12,44 @@
         android:layout_marginRight="10dp" >
 
         <TextView
-            android:id="@+id/task_list_item_title"
+            android:id="@+id/mypublishtaskdetail_list_item_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:gravity="center|left"
             android:singleLine="true"
-            android:text="我是说电话费地方地方司法ids覅是否"
+            android:text="申请人"
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/task_list_item_money"
+            android:id="@+id/mypublishtaskdetail_list_item_phone"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="0dp"
             android:layout_weight="2"
             android:gravity="center|right"
-            android:text="16-50万"
+            android:text="联系方式"
             android:textColor="#f33a3a" />
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:src="@drawable/arrow_b" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/task_list_item_company"
+        android:id="@+id/mypublishtaskdetail_list_item_pro_label"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:gravity="center"
-        android:text="中国移动联通公司"
+        android:text="简介："
         android:textColor="#7b7a7a"
-        android:layout_marginLeft="10dp"
+          android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"  />
 
     <TextView
-        android:id="@+id/task_list_item_time"
+        android:id="@+id/mypublishtaskdetail_list_item_pro"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:text="2015-12-12"
+        android:text="我有丰富的经验"
         android:gravity="center"
         android:textColor="#7b7a7a"
-        android:layout_marginLeft="10dp"
+          android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"  />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/line" />
 
 </LinearLayout>

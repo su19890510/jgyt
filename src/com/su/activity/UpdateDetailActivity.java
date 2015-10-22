@@ -82,6 +82,7 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mimedetail);
         initView();
+        detail_back.setVisibility(View.GONE);
     }
 
     private void initView() {
@@ -159,15 +160,17 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
                 this.finish();
                 break;
             case R.id.nickname_rl:
-                mnick = nick.getText().toString().trim();
-                Intent intent1 = new Intent(UpdateDetailActivity.this, UpdateSignatureActivity.class);
-                Bundle bundle1 = new Bundle();
-                bundle1.putInt("resultcode", 9);
-                bundle1.putString("title", "昵称/公司");
-                bundle1.putString("mimecontent", mnick);
-                bundle1.putInt("num", 15);
-                intent1.putExtras(bundle1);
-                startActivityForResult(intent1, 9);
+//                mnick = nick.getText().toString().trim();
+//                Intent intent1 = new Intent(UpdateDetailActivity.this, UpdateSignatureActivity.class);
+//                Bundle bundle1 = new Bundle();
+//                bundle1.putInt("resultcode", 9);
+//                bundle1.putString("title", "昵称/公司");
+//                bundle1.putString("mimecontent", mnick);
+//                bundle1.putInt("num", 15);
+//                intent1.putExtras(bundle1);
+//                startActivityForResult(intent1, 9);
+                Toast.makeText(this, "此字段不可修改", Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.detail_truename:
                 mnick = truename.getText().toString().trim();
@@ -215,9 +218,9 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
                 String prostr = pro.getText().toString().trim();
                 List<NameValuePair> tt = new ArrayList<NameValuePair>();
                 NetManager bb = NetManager.getInstance(); // .toString();
-                if (nickstr.length() > 0) {
-                    tt.add(new BasicNameValuePair("name", nickstr));
-                }
+//                if (nickstr.length() > 0) {
+//                    tt.add(new BasicNameValuePair("name", nickstr));
+//                }
                 if (truenamestr.length() > 0) {
                     tt.add(new BasicNameValuePair("fullname", truenamestr));
                 }

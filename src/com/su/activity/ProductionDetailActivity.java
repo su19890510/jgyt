@@ -170,7 +170,7 @@ public class ProductionDetailActivity extends FragmentActivity implements OnTouc
                 tt.add(new BasicNameValuePair("app_id", DataAccess.getAppId()));
                 tt.add(new BasicNameValuePair("open_id", DataAccess.getOpenId()));
                 tt.add(new BasicNameValuePair("access_token", DataAccess.getAccessToken()));
-                tt.add(new BasicNameValuePair("entry_id ",String.valueOf(id)));
+                tt.add(new BasicNameValuePair("entry_id",String.valueOf(id)));
 
                 JSONObject get = bb.sendHttpRequest("contest/vote", tt, HttpMethod.GET);
                 try {

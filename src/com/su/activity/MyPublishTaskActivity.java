@@ -14,7 +14,6 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,28 +25,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.View.OnClickListener;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.jgzs.lsw.R;
 import com.su.ImageLoad.ImageLoader;
-import com.su.activity.ProjectActivity.HoldView;
-import com.su.activity.ProjectActivity.NearAdapter;
+import com.su.activity.TaskListActivity.HoldView;
+import com.su.activity.TaskListActivity.NearAdapter;
 import com.su.database.DataAccess;
-import com.su.model.ProjectListModel;
 import com.su.model.TaskModel;
 import com.su.util.HttpMethod;
 import com.su.util.NetManager;
 
-public class TaskListActivity extends Activity implements IXListViewListener{
+public class MyPublishTaskActivity extends Activity implements OnClickListener, IXListViewListener{
 	
 	public NearAdapter nAdapter;
 			
@@ -55,10 +49,11 @@ public class TaskListActivity extends Activity implements IXListViewListener{
 	
 	public XListView showList;
 	
-	public TaskListActivity _task;
+	public TextView back;
+	
+	public MyPublishTaskActivity _task;
 	public float viewWidth;
-	public TextView apply;
-	private int entertype ;
+	
 	private ArrayList<TaskModel> items = new ArrayList<TaskModel>();
 	
 	private int page = 1;
@@ -73,30 +68,27 @@ public class TaskListActivity extends Activity implements IXListViewListener{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.task_activity);
+		setContentView(R.layout.mypublishtask);
 		_task = this;
 		initResourceRefs();
 		initSetting();
 		String name = getIntent().getStringExtra("MER_NAME");
 		mHandler = new Handler();
-		Intent intent1 = this.getIntent();
-        entertype = intent1.getIntExtra("entertype", 1);
-        if(entertype == 2)
-        {
-        	apply.setVisibility(View.GONE);
-        }
 		onRefresh();
+		back.setVisibility(View.GONE);
  	}
 	
 	public void initResourceRefs() {
 	
-		showList = (XListView) findViewById(R.id.task_activity_list);
+		showList = (XListView) findViewById(R.id.mypublishtask_activity_list);
 		showList.setPullLoadEnable(true);
         viewWidth = showList.getWidth();
 	    showList.setXListViewListener(this);
 	   
 		nAdapter = new NearAdapter(_task);
-		apply = (TextView) findViewById(R.id.tasklist_publish);
+		
+		back = (TextView)findViewById(R.id.mypublish_activity_back);
+		back.setOnClickListener(this);
 
 		
 	
@@ -113,12 +105,11 @@ public class TaskListActivity extends Activity implements IXListViewListener{
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Intent picIntent = new Intent(TaskListActivity.this,
-						TaskDetailActivity.class);
+				Intent picIntent = new Intent(MyPublishTaskActivity.this,
+						MyPublishTaskDetailActivity.class);
 				
 				TaskModel model = items.get(arg2 -1);
 				picIntent.putExtra("id", model.getId());
-				picIntent.putExtra("entertype", entertype);
 				Log.v("suzhaohhui",String.valueOf(model.getId()));
 				picIntent.putExtra("title", model.getTitle());
 				picIntent.putExtra("reward", model.getReward());
@@ -126,16 +117,11 @@ public class TaskListActivity extends Activity implements IXListViewListener{
 				picIntent.putExtra("endtime", model.getEnd_date());
 				picIntent.putExtra("dec", model.getDescripteion());
 				picIntent.putExtra("type", model.getType());
-				TaskListActivity.this.startActivity(picIntent);
+				MyPublishTaskActivity.this.startActivity(picIntent);
 			}
 		});
 		
-		apply.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                startActivity(new Intent(TaskListActivity.this, PublishTaskActivity.class));
-            }
-        });
+	
 	
 	}
 	
@@ -177,7 +163,7 @@ public class TaskListActivity extends Activity implements IXListViewListener{
 			HoldView holdview = null;
 			if (convertView == null) {
 				LayoutInflater inflater = LayoutInflater
-						.from(TaskListActivity.this);
+						.from(MyPublishTaskActivity.this);
 				convertView = inflater.inflate(R.layout.task_list_item, null);
 				holdview = new HoldView();
 				holdview.title = (TextView) convertView
@@ -278,16 +264,10 @@ public class TaskListActivity extends Activity implements IXListViewListener{
 		List<NameValuePair>  tt = new ArrayList<NameValuePair>();
 		NetManager bb=		NetManager.getInstance() ; //.toString();
 		tt.add(new BasicNameValuePair("page", String.valueOf(page))); 
-		String url = "task/search";
-		if(entertype == 2)
-		{
-			 tt.add(new BasicNameValuePair("app_id", DataAccess.getAppId()));
-	         tt.add(new BasicNameValuePair("open_id", DataAccess.getOpenId()));
-	         tt.add(new BasicNameValuePair("access_token", DataAccess.getAccessToken()));
-			 url = "task/my_apply_task";
-		}
-
-		JSONObject get = bb.sendHttpRequest(url, tt, HttpMethod.GET);
+		 tt.add(new BasicNameValuePair("app_id", DataAccess.getAppId()));
+         tt.add(new BasicNameValuePair("open_id", DataAccess.getOpenId()));
+         tt.add(new BasicNameValuePair("access_token", DataAccess.getAccessToken()));
+		JSONObject get = bb.sendHttpRequest("task/my_publish_task", tt, HttpMethod.GET);
 		try {
 			if(get != null)
 			{  
@@ -342,12 +322,7 @@ public class TaskListActivity extends Activity implements IXListViewListener{
 					mode.setReward(item.getString("reward"));
 //					mode.setUser_id(item.getInt("user_id"));
 					mode.setGmt_created(item.getString("gmt_created"));
-					String username = "user";
-					if(entertype == 2)
-					{
-						username = "published_user";
-					}
-					mode.setName(item.getJSONObject(username).getString("fullname"));
+					mode.setName(item.getJSONObject("user").getString("fullname"));
 
 					items.add(mode);
 			}
@@ -394,4 +369,16 @@ public class TaskListActivity extends Activity implements IXListViewListener{
 
 //			}
 		};
-}
+
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch(v.getId())
+		{
+		case R.id.mypublish_activity_back:
+			finish();
+			break;
+		}
+		
+	}}

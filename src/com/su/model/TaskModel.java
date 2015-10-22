@@ -11,6 +11,13 @@ private int user_id;
 private int status;
 private String gmt_created;
 private String title;
+private String name ;
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
 public String getTitle() {
 	return title;
 }

@@ -47,6 +47,12 @@
         <activity android:name="com.su.activity.ProductionDetailActivity"/>
         <activity android:name="com.su.activity.TaskListActivity"/>
         <activity android:name="com.su.activity.PublishTaskActivity"/>
+        <activity android:name="com.su.activity.TaskDetailActivity"/>
+        <activity android:name="com.su.activity.MyPublishTaskActivity"/>
+        <activity android:name="com.su.activity.MyPublishTaskDetailActivity"/>
+        <activity android:name="com.su.activity.ApplyRoleListActivity"/>
+        
+        
         
    
     </application>

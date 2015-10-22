@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="app_name">景观云图</string>
+    <string name="app_name">有门有路</string>
     <string name="hello_text">等待....</string>
     <string name="nearby_top_tital">附近</string>
     <string name="nearby_top_location">我在：上海市徐汇区xx号</string>
