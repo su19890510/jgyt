@@ -100,11 +100,10 @@ public class RegisterActivity extends Activity {
                     return;
                 }
                 List<NameValuePair> tt = new ArrayList<NameValuePair>();
-                NetManager bb = NetManager.getInstance(); // .toString();
                 tt.add(new BasicNameValuePair("name", name));
                 tt.add(new BasicNameValuePair("password", password));
                 tt.add(new BasicNameValuePair("mobile", phone));
-                JSONObject get = bb.sendHttpRequest("account/register", tt, HttpMethod.GET);
+                JSONObject get = NetManager.getInstance().sendHttpRequest("account/register", tt, HttpMethod.POST);
                 if (get == null) {
                     Log.v("suzhaohui", "get is null");
                     return;

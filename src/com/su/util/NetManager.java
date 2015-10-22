@@ -32,10 +32,10 @@ public class NetManager {
         switch (httpMethod) {
             case GET:
                 url = revertUrl(url, params);
-                responseJson = HttpUtils.getHttpEntity(url, params, httpMethod);
+                responseJson = HttpUtils.sendRequert(url, params, httpMethod);
                 break;
             case POST:
-                responseJson = HttpUtils.getHttpEntity(url, params, httpMethod);
+                responseJson = HttpUtils.sendRequert(url, params, httpMethod);
                 break;
             default:
                 break;

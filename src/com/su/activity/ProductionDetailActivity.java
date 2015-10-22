@@ -166,13 +166,12 @@ public class ProductionDetailActivity extends FragmentActivity implements OnTouc
             public void run() {
                 Log.v("suzhaohui", "getDetail");
                 List<NameValuePair> tt = new ArrayList<NameValuePair>();
-                NetManager bb = NetManager.getInstance(); // .toString();
                 tt.add(new BasicNameValuePair("app_id", DataAccess.getAppId()));
                 tt.add(new BasicNameValuePair("open_id", DataAccess.getOpenId()));
                 tt.add(new BasicNameValuePair("access_token", DataAccess.getAccessToken()));
                 tt.add(new BasicNameValuePair("entry_id",String.valueOf(id)));
 
-                JSONObject get = bb.sendHttpRequest("contest/vote", tt, HttpMethod.GET);
+                JSONObject get = NetManager.getInstance().sendHttpRequest("contest/vote", tt, HttpMethod.POST);
                 try {
                     if (get != null) {
 

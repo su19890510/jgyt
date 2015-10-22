@@ -43,7 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class UpdateDetailActivity extends Activity implements OnClickListener {
-    
+
     private TextView detail_back;
     private ImageView detail_user_img;
 
@@ -160,15 +160,15 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
                 this.finish();
                 break;
             case R.id.nickname_rl:
-//                mnick = nick.getText().toString().trim();
-//                Intent intent1 = new Intent(UpdateDetailActivity.this, UpdateSignatureActivity.class);
-//                Bundle bundle1 = new Bundle();
-//                bundle1.putInt("resultcode", 9);
-//                bundle1.putString("title", "昵称/公司");
-//                bundle1.putString("mimecontent", mnick);
-//                bundle1.putInt("num", 15);
-//                intent1.putExtras(bundle1);
-//                startActivityForResult(intent1, 9);
+                // mnick = nick.getText().toString().trim();
+                // Intent intent1 = new Intent(UpdateDetailActivity.this, UpdateSignatureActivity.class);
+                // Bundle bundle1 = new Bundle();
+                // bundle1.putInt("resultcode", 9);
+                // bundle1.putString("title", "昵称/公司");
+                // bundle1.putString("mimecontent", mnick);
+                // bundle1.putInt("num", 15);
+                // intent1.putExtras(bundle1);
+                // startActivityForResult(intent1, 9);
                 Toast.makeText(this, "此字段不可修改", Toast.LENGTH_SHORT).show();
 
                 break;
@@ -217,10 +217,9 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
                 String phonestr = phone.getText().toString().trim();
                 String prostr = pro.getText().toString().trim();
                 List<NameValuePair> tt = new ArrayList<NameValuePair>();
-                NetManager bb = NetManager.getInstance(); // .toString();
-//                if (nickstr.length() > 0) {
-//                    tt.add(new BasicNameValuePair("name", nickstr));
-//                }
+                // if (nickstr.length() > 0) {
+                // tt.add(new BasicNameValuePair("name", nickstr));
+                // }
                 if (truenamestr.length() > 0) {
                     tt.add(new BasicNameValuePair("fullname", truenamestr));
                 }
@@ -234,7 +233,7 @@ public class UpdateDetailActivity extends Activity implements OnClickListener {
                 tt.add(new BasicNameValuePair("open_id", DataAccess.getOpenId()));
                 tt.add(new BasicNameValuePair("access_token", DataAccess.getAccessToken()));
                 try {
-                    JSONObject response = bb.sendHttpRequest("account/profile", tt, HttpMethod.GET);
+                    JSONObject response = NetManager.getInstance().sendHttpRequest("account/profile", tt, HttpMethod.POST);
                     int code = response.getInt("code");
                     if (code != 200) {
                         Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();

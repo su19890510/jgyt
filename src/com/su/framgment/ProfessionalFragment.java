@@ -179,7 +179,6 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 	private int getProList()
 	{
 		List<NameValuePair>  tt = new ArrayList<NameValuePair>();
-		NetManager bb=NetManager.getInstance() ; //.toString();	
 		int matchID = 0;
 		try {
 			matchID = AbstractFragment.match.getJSONObject("data").getJSONObject("contest").getInt("id");
@@ -187,7 +186,7 @@ public class ProfessionalFragment extends Fragment implements IXListViewListener
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		JSONObject get = bb.sendHttpRequest("contest/judges/"+String.valueOf(matchID), tt, HttpMethod.POST);
+		JSONObject get = NetManager.getInstance().sendHttpRequest("contest/judges/"+String.valueOf(matchID), tt, HttpMethod.GET);
 		try {
 			if(get != null)
 			{  

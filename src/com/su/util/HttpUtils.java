@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -39,14 +38,14 @@ public final class HttpUtils {
 
     private HttpUtils() {}
 
-    public static String getHttpEntity(String url, List<NameValuePair> params, HttpMethod method) {
+    public static String sendRequert(String url, List<NameValuePair> params, HttpMethod method) {
         switch (method) {
             case GET:
                 return HttpUtils.sendGet(url);
             case POST:
-                return HttpUtils.httpPost(url, params);
+                return HttpUtils.sendPost(url, params);
             default:
-                return HttpUtils.httpPost(url, params);
+                return HttpUtils.sendPost(url, params);
         }
     }
 
@@ -59,26 +58,19 @@ public final class HttpUtils {
         mHttpClient.getParams().setParameter("http.protocol.content-charset", "UTF-8");
         mHttpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 6000);
         mHttpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 6000);
-        
         return mHttpClient;
     }
     
     private static String sendGet(String url) {
         DefaultHttpClient mHttpClient = getHttpClient();
         HttpGet httpGet = new HttpGet(url);
-        Log.v("API SendGet1111", url);
         try {
             HttpResponse httpResponse = mHttpClient.execute(httpGet);
             HttpEntity httpEntity = httpResponse.getEntity();
-            Log.v("suzhaohui","!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             if (httpEntity != null) {
                 int status = httpResponse.getStatusLine().getStatusCode();
-                Log.v("suzhaohui","1111111111111111111111111111111111111111111");
                 if (status == HttpStatus.SC_OK) {
-                	Log.v("suzhaohui","~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    String response = EntityUtils.toString(httpEntity, "UTF-8");
-                    Log.v("Api ss",response);
-                    return response;
+                    return EntityUtils.toString(httpEntity, "UTF-8");
                 }
             }
         } catch (SocketTimeoutException e) {
@@ -99,48 +91,16 @@ public final class HttpUtils {
         return null;
     }
     
-    private static String sendPost(String url, List<NameValuePair> pairs) {
-//        try {
-//            JSONObject jsonObj = new JSONObject();
-//            for (NameValuePair nameValuePair : pairs) {
-//                jsonObj.put(nameValuePair.getName(), nameValuePair.getValue());
-//            }
-//            HttpPost httpPost = new HttpPost(url);
-//            StringEntity entity = new StringEntity(jsonObj.toString(), HTTP.UTF_8);
-//            entity.setContentType("application/json");
-//            httpPost.setEntity(entity);
-//            httpPost.setHeader("Accept", "application/json");
-//            httpPost.setHeader("Content-type", "application/json");
-//            httpPost.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-//            httpPost.setHeader("Cache-Control", "max-age=0");
-//            httpPost.setHeader("Connection", "keep-alive");
-//            httpPost.setHeader("domain", "120.24.228.100");
-//            httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-//            httpPost.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:28.0) Gecko/20100101 Firefox/28.0");
-//            DefaultHttpClient client = getHttpClient();
-//            HttpResponse response = client.execute(httpPost);
-//            HttpEntity httpEntity = response.getEntity();
-//            if (httpEntity != null) {
-//                int status = response.getStatusLine().getStatusCode();
-//                if (status == HttpStatus.SC_OK) {
-//                    return EntityUtils.toString(httpEntity, "UTF-8");
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        
+    static String sendPost(String url, List<NameValuePair> pairs) {
         try {
-            UrlEncodedFormEntity requestHttpEntity = new UrlEncodedFormEntity(pairs, "UTF-8");
+            UrlEncodedFormEntity requestHttpEntity = new UrlEncodedFormEntity(pairs, HTTP.UTF_8);
             requestHttpEntity.setContentEncoding(HTTP.UTF_8);
             requestHttpEntity.setContentType("application/json");
             HttpPost httpPost = new HttpPost(url);
             httpPost.setEntity(requestHttpEntity);
-            httpPost.setHeader("Content-Type", "application/json");
             httpPost.setHeader("Accept", "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
             httpPost.setHeader("Cache-Control", "max-age=0");
             httpPost.setHeader("Connection", "keep-alive");
-            httpPost.setHeader("domain", "120.24.228.100");
             httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
             httpPost.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:28.0) Gecko/20100101 Firefox/28.0");
             DefaultHttpClient mHttpClient = getHttpClient();
@@ -149,7 +109,7 @@ public final class HttpUtils {
             if (httpEntity != null) {
                 int status = response.getStatusLine().getStatusCode();
                 if (status == HttpStatus.SC_OK) {
-                    return EntityUtils.toString(httpEntity, "UTF-8");
+                    return EntityUtils.toString(httpEntity, HTTP.UTF_8);
                 }
             }
         } catch (Exception e) {
@@ -168,7 +128,7 @@ public final class HttpUtils {
             connection.setRequestProperty("Accept", "*/*");
             connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36");
             
-//            connection.connect();
+            connection.connect();
 
             connection.setDoOutput(true);
             connection.setDoInput(true);

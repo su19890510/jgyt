@@ -22,7 +22,7 @@ import android.os.Bundle;
 import android.view.Window;
 
 public class MissPreferentialActivity extends Activity {
-    
+
     public static final String TAG = "nian";
 
     @Override
@@ -41,7 +41,7 @@ public class MissPreferentialActivity extends Activity {
             }
         }, 2000);
     }
-    
+
     private void fetchUserDetail() {
         try {
             String appId = DataAccess.getAppId();
@@ -57,9 +57,10 @@ public class MissPreferentialActivity extends Activity {
             JSONObject response = NetManager.getInstance().sendHttpRequest("account/iprofile", pairs, HttpMethod.GET);
             int code = response.getInt("code");
             if (code != 200) {
-               return;
+                return;
             }
             AppData.userInfo = response.getJSONObject("data").getJSONObject("user");
-        } catch (Throwable ingore) {}
+        } catch (Throwable ingore) {
+        }
     }
 }

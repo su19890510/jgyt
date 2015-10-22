@@ -359,7 +359,6 @@ public class PlantListActivity extends Activity implements IXListViewListener{
 	private int getPlantList()
 	{
 		List<NameValuePair>  tt = new ArrayList<NameValuePair>();
-		NetManager bb=		NetManager.getInstance() ; //.toString();
 		tt.add(new BasicNameValuePair("page", String.valueOf(page))); 
 		if(catId >= 0)
 		{
@@ -373,7 +372,7 @@ public class PlantListActivity extends Activity implements IXListViewListener{
 		{
 			tt.add(new BasicNameValuePair("periodId", String.valueOf(periodId)));
 		}
-		JSONObject get = bb.sendHttpRequest("plant/search", tt, HttpMethod.GET);
+		JSONObject get = NetManager.getInstance().sendHttpRequest("plant/search", tt, HttpMethod.GET);
 		try {
 			if(get != null)
 			{  

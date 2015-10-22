@@ -121,8 +121,7 @@ public class ProjectDetailActivity extends FragmentActivity implements OnTouchLi
             public void run() {
                 Log.v("suzhaohui", "getDetail");
                 List<NameValuePair> tt = new ArrayList<NameValuePair>();
-                NetManager bb = NetManager.getInstance(); // .toString();
-                JSONObject get = bb.sendHttpRequest("item/" + String.valueOf(id), tt, HttpMethod.GET);
+                JSONObject get = NetManager.getInstance().sendHttpRequest("item/" + String.valueOf(id), tt, HttpMethod.GET);
                 try {
                     if (get != null) {
 

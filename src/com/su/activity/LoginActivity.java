@@ -31,7 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
-    
+
     private Button mLogin;
     private TextView forgetPassword;
     private TextView register;
@@ -46,7 +46,7 @@ public class LoginActivity extends Activity {
         manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         LinearLayout activity_main = (LinearLayout) findViewById(R.id.login_activity_main);
         activity_main.setOnTouchListener(new OnTouchListener() {
-            
+
             @SuppressLint("ClickableViewAccessibility")
             public boolean onTouch(View arg0, MotionEvent arg1) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -98,10 +98,9 @@ public class LoginActivity extends Activity {
                     return;
                 }
                 List<NameValuePair> tt = new ArrayList<NameValuePair>();
-                NetManager bb = NetManager.getInstance();
                 tt.add(new BasicNameValuePair("name", name));
                 tt.add(new BasicNameValuePair("password", password));
-                JSONObject get = bb.sendHttpRequest("account/login", tt, HttpMethod.GET);
+                JSONObject get = NetManager.getInstance().sendHttpRequest("account/login", tt, HttpMethod.POST);
                 if (get == null) {
                     Log.v("suzhaohui", "login get is null");
                     return;
