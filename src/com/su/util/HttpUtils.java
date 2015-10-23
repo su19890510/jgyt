@@ -65,6 +65,7 @@ public final class HttpUtils {
         DefaultHttpClient mHttpClient = getHttpClient();
         HttpGet httpGet = new HttpGet(url);
         try {
+            Log.v("API GET", url);
             HttpResponse httpResponse = mHttpClient.execute(httpGet);
             HttpEntity httpEntity = httpResponse.getEntity();
             if (httpEntity != null) {
@@ -94,6 +95,7 @@ public final class HttpUtils {
     static String sendPost(String url, List<NameValuePair> pairs) {
         try {
             UrlEncodedFormEntity requestHttpEntity = new UrlEncodedFormEntity(pairs, HTTP.UTF_8);
+            Log.v("API POST", url + " -D " + pairs);
             requestHttpEntity.setContentEncoding(HTTP.UTF_8);
             requestHttpEntity.setContentType("application/json");
             HttpPost httpPost = new HttpPost(url);

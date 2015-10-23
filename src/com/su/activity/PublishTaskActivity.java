@@ -288,6 +288,10 @@ public class PublishTaskActivity extends Activity implements OnClickListener {
 
         try {
             JSONObject response = NetManager.getInstance().sendHttpRequest("task/publish", tt, HttpMethod.POST);
+            if (response == null) {
+                Toast.makeText(this, "任务发布失败!", Toast.LENGTH_SHORT).show();
+                return;
+            }
             int code = response.getInt("code");
             if (code != 200) {
                 Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();
@@ -295,7 +299,7 @@ public class PublishTaskActivity extends Activity implements OnClickListener {
             }
             Toast.makeText(this, "发布成功", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            Log.v("API Error", "Update Profile Error.", e);
+            Log.v("API Error", "Publish Task Error.", e);
         }
     }
 
